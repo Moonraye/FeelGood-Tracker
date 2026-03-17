@@ -11,8 +11,7 @@ export const useAvatarMutation = () => {
             if (!user) throw new Error('No user');
 
             const fileExt = file.name.split('.').pop();
-            const fileName = `${user.id}-${Math.random()}.${fileExt}`;
-            const filePath = `${user.id}/${fileName}`;
+            const filePath = `${user.id}/avatar.${fileExt}`;
 
             const { error: uploadError } = await supabase.storage
                 .from('avatars')
@@ -20,21 +19,24 @@ export const useAvatarMutation = () => {
 
             if (uploadError) throw uploadError;
 
+
             const { data: { publicUrl } } = supabase.storage
                 .from('avatars')
                 .getPublicUrl(filePath);
 
+            const avatarUrlWithCacheBuster = `${publicUrl}?t=${Date.now()}`;
+
             const { error: updateError } = await supabase 
                 .from('profiles')
-                .update({ avatarUrl: publicUrl })
+                .update({ avatar_url: avatarUrlWithCacheBuster })
                 .eq('id', user.id);
 
             if (updateError) throw updateError;
 
-            return publicUrl;
+            return avatarUrlWithCacheBuster;
         },
         onSuccess: () => {
-            queryClient.invalidateQueries(['profile', user?.id])
+            queryClient.invalidateQueries({ queryKey: ['profile', user?.id] })
         }
     });
 };

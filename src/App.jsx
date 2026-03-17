@@ -34,6 +34,7 @@ function App() {
             <Route element={<MobileLayout />}>
               <Route path="/" element={<Home />} />
               <Route path="/profile" element={<Profile/>} />
+
             </Route>
 
             <Route path="/workout/active" element={<ActiveWorkout />} />
