@@ -7,7 +7,10 @@ export const useAuthListener = () => {
     const isInitialized = useAuthStore((state) => state.isInitialized);
 
     useEffect(() => {
-        supabase.auth.getSession().then(({ data: { session } }) => {
+        supabase.auth.getSession().then(({ data: { session }, error }) => {
+            if (error) {
+                console.error("Помилка отримання сесії:", error);
+            }
             setAuth(session);
         });
 

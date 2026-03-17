@@ -10,9 +10,4 @@ export const useAuthStore = create((set) => ({
         user: session?.user ?? null,
         isInitialized: true,
     }),
-
-    clearAuth: () => set({
-        session: null,
-        user: null
-    }),
 }));

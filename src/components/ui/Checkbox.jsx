@@ -1,24 +1,30 @@
-import { CheckBox } from '@mui/icons-material';
-import { FormControlLabel } from '@mui/material';
+import { Checkbox, FormControlLabel } from "@mui/material";
 
-const label = { slotProps: { input: { 'aria-label': 'Checkbox demo' } } };
+const label = { slotProps: { input: { "aria-label": "Checkbox demo" } } };
 
-export const AppCheckbox = ({ label, checked, onChange, name, disabled = false, ...props }) => {
+export const AppCheckbox = ({
+  label,
+  checked,
+  onChange,
+  name,
+  disabled = false,
+  ...props
+}) => {
   return (
-    <FormControlLabel 
-    control={
-        <CheckBox 
-            checked={checked}
-            onChange={onChange}
-            name={name}
-            color='primary'
-            sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
-            {...props}
+    <FormControlLabel
+      control={
+        <Checkbox
+          checked={checked}
+          onChange={onChange}
+          name={name}
+          color="primary"
+          sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
+          {...props}
         />
-    } 
-    label={label}
-    disabled={disabled}
-    sx={{ userSelect: 'none', margin: 0 }}
+      }
+      label={label}
+      disabled={disabled}
+      sx={{ userSelect: "none", margin: 0 }}
     />
   );
 };
