@@ -5,14 +5,19 @@ import {
   CircularProgress,
   Divider,
 } from "@mui/material";
+
+import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
+import IconButton from "@mui/material/IconButton";
 import { useLogoutMutation } from "../features/auth/hooks/useAuthMutation";
 import { useAuthStore } from "../store/useAuthStore";
 import { useProfileQuery } from "../features/profile/hooks/useProfileQuery";
 
 import { AppButton } from "../components/ui/AppButton";
-import UploadAvatar from "../features/profile/components/UploadAvatar";
+import { useNavigate } from "react-router-dom";
+import AppAvatar from "../components/ui/AppAvatar";
 
 export const Profile = () => {
+  const navigate = useNavigate();
   const logoutMutation = useLogoutMutation();
   const user = useAuthStore((state) => state.user);
   const { data: profile, isLoading: isProfileLoading } = useProfileQuery();
@@ -40,68 +45,109 @@ export const Profile = () => {
     <Box
       sx={{ p: 2, display: "flex", flexDirection: "column", gap: 3, pb: 10 }}
     >
-      <Typography variant="h5" fontWeight="bold">
-        Profile
-      </Typography>
-
       {user && (
         <Box>
           <Paper
             elevation={0}
             sx={{
-              p: 3,
-              borderRadius: 3,
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
               gap: 2,
-              border: "1px solid",
-              borderColor: "divider",
+              position: "relative",
+              p: 3,
+              alignItems: "center",
+              mt: 1,
+              background: "none",
             }}
           >
-            <UploadAvatar currentAvatarUrl={profile?.avatar_url} />
-
-            <Box sx={{ textAlign: "center" }}>
+            <AppAvatar
+              src={profile?.avatar_url}
+              sx={{ width: 100, height: 100 }}
+            />
+            <Box sx={{}}>
               <Typography variant="h6" fontWeight="bold">
                 {profile?.display_name || "User"}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {profile?.email}
-              </Typography>
+              {/* <IconButton
+                
+                sx={{ mr: 1, ml: -1, position: "absolute", right: 0, top: 0}}
+              >
+                <ModeEditOutlineIcon />
+              </IconButton> */}
             </Box>
           </Paper>
 
           <Paper
             elevation={0}
             sx={{
-              p: 3,
-              borderRadius: 3,
-              border: "1px solid",
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 1fr)",
+              gap: 2,
+              borderRadius: "30%",
               borderColor: "divider",
+              background: "none",
             }}
           >
-            <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
-              My activity
-            </Typography>
-            <Divider sx={{ mb: 2 }} />
-            <Typography variant="body2" color="text.secondary">
-              My progress
-            </Typography>
+            <Paper
+              sx={{
+                border: "2px solid",
+                p: 2,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <ModeEditOutlineIcon />
+              <Typography>42</Typography>
+              <Typography>Workouts</Typography>
+            </Paper>
+
+            <Paper
+              sx={{
+                border: "2px solid",
+                p: 2,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <ModeEditOutlineIcon />
+              <Typography>8</Typography>
+              <Typography>Rest Days</Typography>
+            </Paper>
           </Paper>
+
+          <Box sx={{ mt: 3, pt: 2, border: "1px solid", borderRadius: 1}}>
+            <AppButton
+              variant="outlined"
+              onClick={() => navigate("/settings")}
+              sx={{ border: 0 }}
+            >
+              Personal Info
+            </AppButton>
+            <Divider />
+            <AppButton
+              variant="outlined"
+              onClick={() => navigate("/settings")}
+              sx={{ border: 0 }}
+            >
+              Personal Info
+            </AppButton>
+            <Divider />
+
+            <AppButton
+              onClick={handleLogout}
+              color="error"
+              variant="outlined"
+              isLoading={logoutMutation.isPending}
+              disabled={logoutMutation.isPending}
+              sx={{ border: 0 }}
+            >
+              Logout
+            </AppButton>
+          </Box>
         </Box>
       )}
-
-      <Box sx={{ mt: "auto", pt: 2 }}>
-        <AppButton
-          onClick={handleLogout}
-          color="error"
-          variant="outlined"
-          isLoading={logoutMutation.isPending}
-          disabled={logoutMutation.isPending}
-        >
-          Logout
-        </AppButton>
-      </Box>
     </Box>
   );
 };
