@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
-import { CssBaseline } from "@mui/material";
+import { CircularProgress, CssBaseline } from "@mui/material";
 
 import { getAppTheme } from "./config/theme";
 import { useAuthListener } from "./features/auth/hooks/useAuthListener";
@@ -8,18 +8,20 @@ import { useAuthListener } from "./features/auth/hooks/useAuthListener";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { MobileLayout } from "./components/ui/MobileLayout";
 import { Profile } from "./pages/Profile";
+import { ProfileSettings } from "./pages/ProfileSettings";
+import { Home } from "./pages/Home";
+import { SelectExercise } from "./pages/SelectExercise";
+// import { ActiveWorkout } from "./pages/ActiveWorkout";
+
 import AuthForm from "./features/auth/components/AuthForm";
 
-
-const Home = () => <div>Dashboard (Workouts)</div>; // Додано компонент Home
-const ActiveWorkout = () => <div>Active Workout Tracking</div>;
 
 function App() {
 
   const isInitialized = useAuthListener();
   
   if (!isInitialized) {
-    return <div>Loading...</div>; // add loader component later
+    return <CircularProgress />; 
   }
 
   return (
@@ -34,10 +36,15 @@ function App() {
             <Route element={<MobileLayout />}>
               <Route path="/" element={<Home />} />
               <Route path="/profile" element={<Profile/>} />
+              <Route path="/settings" element={<ProfileSettings/>} />
+
 
             </Route>
 
-            <Route path="/workout/active" element={<ActiveWorkout />} />
+            {/* <Route path="/active" element={<ActiveWorkout />} /> */}
+            <Route path="/add-exercise" element={<SelectExercise />} />
+
+
 
           </Route>
         </Routes>
