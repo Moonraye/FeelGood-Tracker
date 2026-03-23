@@ -2,12 +2,19 @@ import { Box, Paper, Typography, IconButton, InputBase } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useActiveWorkoutStore } from "../../../store/useActiveWorkoutStore";
 import { AppButton } from "../../../components/ui/AppButton";
-import { use } from "react";
 
 export const ExerciseCard = ({ exercise }) => {
-  const { addSet, updateSet, toggleSetCompletion } = useActiveWorkoutStore();
+  const {
+    addSet,
+    updateSet,
+    toggleSetCompletion,
+    removeExercise,
+    removeSet,
+    updateExerciseNote,
+  } = useActiveWorkoutStore();
 
   return (
     <Paper elevation={1} sx={{ p: 2, mb: 2, borderRadius: 3 }}>
@@ -22,7 +29,11 @@ export const ExerciseCard = ({ exercise }) => {
         <Typography variant="h6" fontWeight="bold">
           {exercise.name}
         </Typography>
-        <IconButton size="small" color="error">
+        <IconButton
+          size="small"
+          color="error"
+          onClick={() => removeExercise(exercise.id)}
+        >
           <DeleteOutlineIcon />
         </IconButton>
       </Box>
@@ -82,6 +93,23 @@ export const ExerciseCard = ({ exercise }) => {
               inputProps={{ min: 0, style: { textAlign: "center" } }}
               type="number"
               placeholder="-"
+              value={set.kg || ""}
+              onChange={(e) =>
+                updateSet(exercise.id, set.id, "kg", e.target.value)
+              }
+              disabled={set.isCompleted}
+            />
+          </Paper>
+
+          <Paper
+            elevation={0}
+            sx={{ bgcolor: "background.default", borderRadius: 2 }}
+          >
+            <InputBase
+              fullWidth
+              inputProps={{ min: 1, style: { textAlign: "center" } }}
+              type="number"
+              placeholder="-"
               value={set.reps}
               onChange={(e) =>
                 updateSet(exercise.id, set.id, "reps", e.target.value)
@@ -96,7 +124,7 @@ export const ExerciseCard = ({ exercise }) => {
           >
             <InputBase
               fullWidth
-              inputProps={{ min: 0, style: { textAlign: "center" } }}
+              inputProps={{ min: 0, max: 10, style: { textAlign: "center" } }}
               type="number"
               placeholder="-"
               value={set.rpe}
@@ -107,25 +135,56 @@ export const ExerciseCard = ({ exercise }) => {
             />
           </Paper>
 
-          <IconButton
-            size="small"
-            color={set.isCompleted ? "success" : "default"}
-            onClick={() => toggleSetCompletion(exercise.id, set.id)}
-          >
-            {set.isCompleted ? <CheckCircleIcon /> : <CheckCircleOutlineIcon />}
-          </IconButton>
+          <Box sx={{ display: "flex" }}>
+            <IconButton
+              size="small"
+              color={set.isCompleted ? "success" : "default"}
+              onClick={() => toggleSetCompletion(exercise.id, set.id)}
+            >
+              {set.isCompleted ? (
+                <CheckCircleIcon />
+              ) : (
+                <CheckCircleOutlineIcon />
+              )}
+            </IconButton>
+            <IconButton
+              size="small"
+              color={set.isCompleted ? "success" : "default"}
+              onClick={() => removeSet(exercise.id, set.id)}
+            >
+              <RemoveCircleOutlineIcon />
+            </IconButton>
+          </Box>
         </Box>
       ))}
 
-      <AppButton
-        variant="text"
-        color="primary"
-        fullWidth
-        sx={{ mt: 1, bgcolor: "primary.light", color: "primary.dark" }}
-        onClick={() => addSet(exercise.id)}
-      >
-        + Add Set
-      </AppButton>
+      <Box>
+        <AppButton
+          variant="text"
+          color="primary"
+          fullWidth
+          sx={{ mt: 1, bgcolor: "primary.light", color: "primary.dark" }}
+          onClick={() => addSet(exercise.id)}
+        >
+          + Add Set
+        </AppButton>
+        <InputBase
+          fullWidth
+          multiline
+          placeholder="Add notes for this exercise..."
+          value={exercise.notes || ""}
+          onChange={(e) => updateExerciseNote(exercise.id, e.target.value)}
+          sx={{
+            fontSize: "0.875rem",
+            color: "text.secondary",
+            "& textarea": { padding: 0 },
+            mt: 1
+
+          }}
+        >
+          Add Description
+        </InputBase>
+      </Box>
     </Paper>
   );
 };

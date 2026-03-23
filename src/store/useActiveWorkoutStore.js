@@ -4,18 +4,23 @@ export const useActiveWorkoutStore = create((set) => ({
     isActive: false,
     startTime: null,
     exercises: [],
+    workoutName: "New Workout", 
 
     startWorkout: () => set({
         isActive: true,
         startTime: Date.now(),
+        workoutName: "New Workout",
         exercises: []
     }),
 
     clearWorkout: () => set({
         isActive: false,
         startTime: null,
+        workoutName: "New Workout",
         exercises: [],
     }),
+    
+    setWorkoutName: (name) => set({ workoutName: name }),
 
     addExercise: (exerciseDef) => set((state) => ({
         exercises: [
@@ -24,6 +29,7 @@ export const useActiveWorkoutStore = create((set) => ({
                 id: crypto.randomUUID(),
                 exerciseId: exerciseDef.id,
                 name: exerciseDef.name,
+                notes: "",
                 sets: [
                     {
                         id: crypto.randomUUID(),
@@ -35,6 +41,10 @@ export const useActiveWorkoutStore = create((set) => ({
                 ]
             }
         ]
+    })),
+
+    removeExercise: (exerciseId) => set((state) => ({
+        exercises: state.exercises.filter((ex) => ex.id !== exerciseId)
     })),
 
     addSet: (exerciseId) => set((state) => ({
@@ -55,7 +65,8 @@ export const useActiveWorkoutStore = create((set) => ({
                     ]
                 }
             }
-        })
+            return ex;
+        })   
     })),
 
     updateSet: (exerciseId, setId, field, value) => set((state) => ({
@@ -72,6 +83,24 @@ export const useActiveWorkoutStore = create((set) => ({
     })
   })),
 
+  removeSet: (exerciseId, setId) => set((state) => ({
+        exercises: state.exercises.map(ex => {
+            if (ex.id === exerciseId) {
+                return {
+                    ...ex,
+                    sets: ex.sets.filter(set => set.id !== setId)
+                };
+            }
+            return ex;
+        })
+    })),
+
+    updateExerciseNote: (exerciseId, note) => set((state) => ({
+        exercises: state.exercises.map(ex => 
+            ex.id === exerciseId ? { ...ex, notes: note } : ex
+        )
+    })),
+
     toggleSetCompletion: (exersiseId, setId) => set((state) => ({
         exercises: state.exercises.map(ex => {
             if (ex.id === exersiseId) {
@@ -85,4 +114,6 @@ export const useActiveWorkoutStore = create((set) => ({
             return ex;
         })
     })),
+
+    
 }));
