@@ -35,14 +35,7 @@ export const MobileLayout = () => {
         <Outlet />
       </Box>
 
-      <FloatingActionButton
-        color="primary"
-        aria-label="add"
-        sx={{ position: "fixed", bottom: 24, left: 24 }}
-        onClick={() => navigate("/workout/active")}
-      >
-        <AddIcon />
-      </FloatingActionButton>
+
 
       <Paper
         sx={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 1000 }}
