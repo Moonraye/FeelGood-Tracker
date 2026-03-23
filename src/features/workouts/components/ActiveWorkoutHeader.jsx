@@ -4,6 +4,7 @@ import { useActiveWorkoutStore } from "../../../store/useActiveWorkoutStore";
 import { useSaveWorkoutMutation } from "../hooks/useWorkoutMutation";
 import { AppButton } from "../../../components/ui/AppButton";
 import { AppTextField } from "../../../components/ui/AppTextField";
+import { WorkoutTimer } from "./WorkoutTimer";
 
 export const ActiveWorkoutHeader = () => {
   const navigate = useNavigate();
@@ -47,6 +48,7 @@ export const ActiveWorkoutHeader = () => {
             placeholder="Workout Name"
         />
         </Box>
+        <WorkoutTimer />
         <AppButton 
         onClick={handleFinish} 
         isLoading={saveWorkoutMutation.isPending}

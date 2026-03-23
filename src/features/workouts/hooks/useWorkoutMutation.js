@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../../../config/supabase";
 import { useAuthStore } from "../../../store/useAuthStore";
+import { extractExerciseNotes, prepareSetsForInsert } from "../utils/formatters";
 
 export const useSaveWorkoutMutation = () => {
     const user = useAuthStore((state) => state.user);
@@ -10,47 +11,26 @@ export const useSaveWorkoutMutation = () => {
         mutationFn: async ({ name, startTime, exercises, }) => {
             if (!user) throw new Error('No user found');
 
-
-            const exerciseNotes = {};
-            exercises.forEach(ex => {
-                if (ex.notes && ex.notes.trim() !== "") {
-                    exerciseNotes[ex.exerciseId] = ex.notes.trim();
-                }
-            });
+            const exerciseNotes = extractExerciseNotes(exercises);
 
             const {
                 data: workout,
                 error: workoutError
             } = await supabase
                 .from('workouts')
-                .insert({ 
-                    user_id: user.id, 
-                    name: name || 'New Workout', 
-                    is_completed: true, 
+                .insert({
+                    user_id: user.id,
+                    name: name || 'New Workout',
+                    is_completed: true,
                     is_template: false,
-                    exercise_notes: Object.keys(exerciseNotes).length > 0 ? exerciseNotes : null
-
+                    exercise_notes: exerciseNotes,
                 })
                 .select()
                 .single();
 
             if (workoutError) throw workoutError;
 
-            const setsToInsert = [];
-            exercises.forEach((ex) => {
-                ex.sets.forEach((set, index) => {
-                    if (set.isCompleted) {
-                        setsToInsert.push({
-                            workout_id: workout.id,
-                            exercise_id: ex.exerciseId,
-                            set_number: index + 1,
-                            weight: parseFloat(set.weight) || 0,
-                            reps: parseInt(set.reps) || 0,
-                            rpe: parseFloat(set.rpe) || 0,
-                        });
-                    }
-                });
-            });
+            const setsToInsert = prepareSetsForInsert(exercises, workout.id);
 
             if (setsToInsert.length > 0) {
                 const { error: setsError } = await supabase
