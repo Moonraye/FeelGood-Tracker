@@ -14,6 +14,7 @@ import { SelectExercise } from "./pages/SelectExercise";
 import { ActiveWorkout } from "./pages/ActiveWorkout";
 
 import AuthForm from "./features/auth/components/AuthForm";
+import { UserExercises } from "./pages/UserExercises";
 
 
 function App() {
@@ -37,7 +38,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/profile" element={<Profile/>} />
               <Route path="/settings" element={<ProfileSettings/>} />
-
+              <Route path="/user-exercises" element={<UserExercises />} />
 
             </Route>
 
