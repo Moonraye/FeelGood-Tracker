@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware"; // 1. Додаємо імпорт
+import { persist } from "zustand/middleware";
 
 export const useActiveWorkoutStore = create(
     persist((set) => ({

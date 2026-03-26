@@ -8,7 +8,7 @@ export const useSaveWorkoutMutation = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async ({ name, startTime, exercises, }) => {
+        mutationFn: async ({ name, exercises, }) => {
             if (!user) throw new Error('No user found');
 
             const exerciseNotes = extractExerciseNotes(exercises);

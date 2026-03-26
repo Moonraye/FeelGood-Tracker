@@ -55,7 +55,7 @@ export const MobileLayout = () => {
           />
           <BottomNavigationAction
             label="Exercises"
-            value="/exercises"
+            value="/user-exercises"
             icon={<FormatListBulleted />}
           />
           <BottomNavigationAction

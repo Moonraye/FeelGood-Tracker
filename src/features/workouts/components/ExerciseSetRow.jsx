@@ -39,7 +39,7 @@ export const ExerciseSetRow = ({
           placeholder="-"
           value={set.weight || ""}
           onChange={(e) =>
-            updateSet(exercise.id, set.id, "weight", e.target.value)
+            onUpdateSet(exerciseId, set.id, "weight", e.target.value)
           }
           disabled={set.isCompleted}
         />
@@ -56,7 +56,7 @@ export const ExerciseSetRow = ({
           placeholder="-"
           value={set.reps}
           onChange={(e) =>
-            updateSet(exercise.id, set.id, "reps", e.target.value)
+            onUpdateSet(exerciseId, set.id, "reps", e.target.value)
           }
           disabled={set.isCompleted}
         />
@@ -73,7 +73,7 @@ export const ExerciseSetRow = ({
           placeholder="-"
           value={set.rpe}
           onChange={(e) =>
-            updateSet(exercise.id, set.id, "rpe", e.target.value)
+            onUpdateSet(exerciseId, set.id, "rpe", e.target.value)
           }
           disabled={set.isCompleted}
         />
@@ -83,14 +83,14 @@ export const ExerciseSetRow = ({
         <IconButton
           size="small"
           color={set.isCompleted ? "success" : "default"}
-          onClick={() => toggleSetCompletion(exercise.id, set.id)}
+          onClick={() => onToggleCompletion(exerciseId, set.id)}
         >
           {set.isCompleted ? <CheckCircleIcon /> : <CheckCircleOutlineIcon />}
         </IconButton>
         <IconButton
           size="small"
           color={set.isCompleted ? "success" : "default"}
-          onClick={() => removeSet(exercise.id, set.id)}
+          onClick={() => onRemoveSet(exerciseId, set.id)}
         >
           <RemoveCircleOutlineIcon />
         </IconButton>

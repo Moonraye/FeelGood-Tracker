@@ -63,7 +63,7 @@ export const ExerciseSearchList = ({ onSelect }) => {
                 divider={index < filteredExercises.length - 1}
               >
                 <ListItemButton
-                  onClick={() => handleSelect(exercise)}
+                  onClick={() => onSelect(exercise)}
                   sx={{ py: 1.5 }}
                 >
                   <ListItemText primary={exercise.name} />

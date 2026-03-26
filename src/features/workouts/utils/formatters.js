@@ -24,4 +24,6 @@ export const prepareSetsForInsert = (exercises, workoutId) => {
             }
         });
     });
+
+    return setsToInsert;
 }
