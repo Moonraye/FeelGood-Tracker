@@ -6,6 +6,7 @@ import {
 } from "@mui/material";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 
 import { useActiveWorkoutStore } from "../store/useActiveWorkoutStore";
@@ -47,6 +48,10 @@ export const SelectExercise = () => {
         <Typography variant="h6" fontWeight="bold" sx={{ flexGrow: 1 }}>
           Add Exercise
         </Typography>
+        <IconButton onClick={() => navigate('/user-exercises')} sx={{ ml: -1 }}>
+          <AddIcon />
+          <Typography variant="button"  >Add Custom Exercise</Typography>
+        </IconButton>
       </Paper>
 
         <ExerciseSearchList onSelect={handleSelect}/> 
