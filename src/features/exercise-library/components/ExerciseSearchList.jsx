@@ -12,7 +12,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
  
 
-import { useExercisesQuery } from "../../../features/workouts/hooks/useExercisesQuery";
+import { useExercisesQuery } from "../hooks/useExercisesQuery";
 import { AppTextField } from "../../../components/ui/AppTextField";
 
 export const ExerciseSearchList = ({ onSelect }) => {

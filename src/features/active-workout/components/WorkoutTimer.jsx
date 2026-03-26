@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useActiveWorkoutStore } from "../../../store/useActiveWorkoutStore";
+import { useActiveWorkoutStore } from "../store/useActiveWorkoutStore";
 import { Typography } from "@mui/material";
 
 export const WorkoutTimer = () => {

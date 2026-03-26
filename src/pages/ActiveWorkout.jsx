@@ -1,14 +1,23 @@
 import { Box, Typography } from "@mui/material";
-import { ActiveWorkoutHeader } from "../features/workouts/components/ActiveWorkoutHeader";
-import { ExerciseCard } from "../features/workouts/components/ExerciseCard";
+import { ActiveWorkoutHeader } from "../features/active-workout/components/ActiveWorkoutHeader";
+import { ExerciseCard } from "../features/active-workout/components/ExerciseCard";
 
 import { useNavigate } from "react-router-dom";
-import { useActiveWorkoutStore } from "../store/useActiveWorkoutStore";
+import { useActiveWorkoutStore } from "../features/active-workout/store/useActiveWorkoutStore";
 import { AppButton } from "../components/ui/AppButton";
 
 export const ActiveWorkout = () => {
   const navigate = useNavigate();
-  const exercises = useActiveWorkoutStore((state) => state.exercises);
+
+  const {
+    exercises,
+    addSet,
+    updateSet,
+    toggleSetCompletion,
+    removeExercise,
+    removeSet,
+    updateExerciseNote,
+  } = useActiveWorkoutStore();
 
   return (
     <Box>
@@ -21,7 +30,16 @@ export const ActiveWorkout = () => {
           </Typography>
         ) : (
           exercises.map((exercise) => (
-            <ExerciseCard key={exercise.id} exercise={exercise} />
+            <ExerciseCard
+              key={exercise.id}
+              exercise={exercise}
+              onAddSet={addSet}
+              onUpdateSet={updateSet}
+              onToggleSetCompletion={toggleSetCompletion}
+              onRemoveExercise={removeExercise}
+              onRemoveSet={removeSet}
+              onUpdateExerciseNote={updateExerciseNote}
+            />
           ))
         )}
       </Box>

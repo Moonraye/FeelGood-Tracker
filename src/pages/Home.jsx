@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import { QuickStartButtons } from "../features/workouts/components/QuickStartButtons";
-import { WorkoutStats } from "../features/workouts/components/WorkoutStats";
-import { RecentWorkout } from "../features/workouts/components/RecentWorkout";
+import { QuickStartButtons } from "../features/dashboard/components/QuickStartButtons";
+import { WorkoutStats } from "../features/dashboard/components/WorkoutStats";
+import { RecentWorkout } from "../features/dashboard/components/RecentWorkout";
 
 export const Home = () => {
   return (
