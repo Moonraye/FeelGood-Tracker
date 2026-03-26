@@ -1,7 +1,8 @@
 import { Paper, Typography } from "@mui/material";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 
-export const ProfileStats = ({ workoutsCount = 42, restDaysCount = 8 }) => {
+export const ProfileStats = ({ workoutsCount = 0, favoriteExercise = "N/A" }) => {
   return (
     <Paper
       elevation={0}
@@ -23,7 +24,7 @@ export const ProfileStats = ({ workoutsCount = 42, restDaysCount = 8 }) => {
           alignItems: "center",
         }}
       >
-        <ModeEditOutlineIcon />
+        <FitnessCenterIcon />
         <Typography>{workoutsCount}</Typography>
         <Typography>Workouts</Typography>
       </Paper>
@@ -37,9 +38,9 @@ export const ProfileStats = ({ workoutsCount = 42, restDaysCount = 8 }) => {
           alignItems: "center",
         }}
       >
-        <ModeEditOutlineIcon />
-        <Typography>{restDaysCount}</Typography>
-        <Typography>Rest Days</Typography>
+        <FitnessCenterIcon />
+        <Typography>{favoriteExercise}</Typography>
+        <Typography>Favorite Exercise</Typography>
       </Paper>
     </Paper>
   );

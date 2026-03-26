@@ -1,7 +1,8 @@
 import { Box, CircularProgress, Divider } from "@mui/material";
 import { useLogoutMutation } from "../features/auth/hooks/useAuthMutation";
 import { useAuthStore } from "../store/useAuthStore";
-import { useProfileQuery } from "../features/profile/hooks/useProfileQuery";
+import { useProfileQuery } from "../features/profile/hooks/useProfileQuery"
+import { useUserStatsQuery } from "../features/dashboard/hooks/useUserStatsQuery";
 
 import { AppButton } from "../components/ui/AppButton";
 import { useNavigate } from "react-router-dom";
@@ -13,13 +14,15 @@ export const Profile = () => {
   const navigate = useNavigate();
   const logoutMutation = useLogoutMutation();
   const user = useAuthStore((state) => state.user);
+
   const { data: profile, isLoading: isProfileLoading } = useProfileQuery();
+  const { data: stats, isLoading: isStatsLoading } = useUserStatsQuery();
 
   const handleLogout = () => {
     logoutMutation.mutate();
   };
 
-  if (isProfileLoading) {
+  if (isProfileLoading || isStatsLoading) {
     return (
       <Box
         sx={{
@@ -45,7 +48,8 @@ export const Profile = () => {
             displayName={profile?.display_name}
           />
 
-          <ProfileStats />
+          <ProfileStats workoutsCount={stats?.workoutsCount || 0}
+            favoriteExercise={stats?.favoriteExercise || "N/A"}/>
 
           <Box sx={{ mt: 3, pt: 2, border: "1px solid", borderRadius: 1 }}>
             <AppButton
