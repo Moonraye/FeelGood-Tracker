@@ -4,10 +4,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import AppAvatar from "../../../components/ui/AppAvatar";
 import ButtonBase from "@mui/material/ButtonBase";
 import { useAvatarMutation } from "../hooks/useAvatarMutation";
+import { useSnackbarStore } from "../../../store/useSnackbarStore";
 
 export default function UploadAvatar({ currentAvatarUrl }) {
   const [localPreview, setLocalPreview] = React.useState(null);
   const AvatarMutation = useAvatarMutation();
+  const showSnackbar = useSnackbarStore((state) => state.showSnackbar);
+
 
   const handleAvatarChange = (event) => {
     const file = event.target.files?.[0];
@@ -19,11 +22,13 @@ export default function UploadAvatar({ currentAvatarUrl }) {
         onSuccess: () => {
           setLocalPreview(null);
           URL.revokeObjectURL(objectUrl);
+          showSnackbar("Avatar updated successfully");
         },
 
         onError: () => {
           setLocalPreview(null);
           URL.revokeObjectURL(objectUrl);
+          showSnackbar("Error updating avatar");
         },
       });
     }
@@ -36,7 +41,7 @@ export default function UploadAvatar({ currentAvatarUrl }) {
       component="label"
       role={undefined}
       disabled={AvatarMutation.isPending}
-      tabIndex={-1} // prevent label from tab focus
+      tabIndex={-1} 
       aria-label="Avatar image"
       sx={{
         borderRadius: "40px",
@@ -62,7 +67,7 @@ export default function UploadAvatar({ currentAvatarUrl }) {
               alignItems: "center",
               justifyContent: "center",
               border: "2px solid",
-              borderColor: "background.paper", // Щоб рамка збігалася з фоном картки
+              borderColor: "background.paper", 
             }}
           >
             <EditIcon sx={{ fontSize: 14 }} />

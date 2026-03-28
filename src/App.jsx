@@ -15,41 +15,36 @@ import { ActiveWorkout } from "./pages/ActiveWorkout";
 
 import AuthForm from "./features/auth/components/AuthForm";
 import { UserExercises } from "./pages/UserExercises";
-
+import { AppSnackBar } from "./components/ui/AppSnackbar";
 
 function App() {
-
   const isInitialized = useAuthListener();
-  
+
   if (!isInitialized) {
-    return <CircularProgress />; 
+    return <CircularProgress />;
   }
 
   return (
-    <ThemeProvider theme={getAppTheme('light')}>
+    <ThemeProvider theme={getAppTheme("light")}>
       <CssBaseline />
       <Router>
         <Routes>
           <Route path="/login" element={<AuthForm />} />
 
           <Route element={<ProtectedRoute />}>
-
             <Route element={<MobileLayout />}>
               <Route path="/" element={<Home />} />
-              <Route path="/profile" element={<Profile/>} />
-              <Route path="/settings" element={<ProfileSettings/>} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/settings" element={<ProfileSettings />} />
               <Route path="/user-exercises" element={<UserExercises />} />
-
             </Route>
 
             <Route path="/active" element={<ActiveWorkout />} />
             <Route path="/add-exercise" element={<SelectExercise />} />
-
-
-
           </Route>
         </Routes>
       </Router>
+      <AppSnackBar />
     </ThemeProvider>
   );
 }
