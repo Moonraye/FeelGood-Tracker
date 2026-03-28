@@ -35,18 +35,25 @@ export const ActiveWorkoutHeader = () => {
   };
 
   return (
-    <Box
+    <Box 
       sx={{
-        p: 1,
+        width: '100%',
+        p:1,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        borderRadius: 0,
+        borderBottom: "1px solid",
+        borderColor: "divider",
+        bgcolor: "background.paper",
       }}
     >
-      <IconButton onClick={() => navigate(-1)}>
+      <Box>
+        <IconButton onClick={() => navigate(-1)}>
         <ArrowBackIcon />
       </IconButton>
-      <Box sx={{ width: '50%' }}>
+      </Box>
+      <Box sx={{ display: "flex", flexDirection: 'column',justifyContent:'center', alignItems: 'center', }}>
         <InputBase
           value={workoutName}
           onChange={(e) => setWorkoutName(e.target.value)}
@@ -55,17 +62,20 @@ export const ActiveWorkoutHeader = () => {
             fontWeight: "bold",
           }}
           placeholder="Workout Name"
+          inputProps={{ style: { textAlign: 'center' } }}
         />
-      </Box>
-      <Box sx={{ display: 'flex', gap: 3}}>
         <WorkoutTimer />
+
+      </Box>
+      <Box>
         <AppButton
+          variant="contained"
+          fullWidth
           onClick={handleFinish}
           isLoading={saveWorkoutMutation.isPending}
           disabled={saveWorkoutMutation.isPending || !exercises.length}
-          variant="outlined"
-          color="success"
-          sx={{ width: "auto", px: 3 }}
+          color="error"
+          sx={{ height: '40px' }}
         >
           Finish
         </AppButton>

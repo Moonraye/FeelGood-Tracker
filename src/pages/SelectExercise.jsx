@@ -50,7 +50,7 @@ export const SelectExercise = () => {
         </Typography>
         <IconButton onClick={() => navigate('/user-exercises')} sx={{ ml: -1 }}>
           <AddIcon />
-          <Typography variant="button"  >Add Custom Exercise</Typography>
+          <Typography variant="button"  >Add Custom </Typography>
         </IconButton>
       </Paper>
 

@@ -7,26 +7,22 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-
 import {
   FitnessCenter,
-  FormatListBulleted,
   Person,
 } from "@mui/icons-material";
-import AddIcon from "@mui/icons-material/Add";
-import FloatingActionButton from "./FloatingActiveButton";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-
+import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 export const MobileLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-      <AppBar position="sticky">
+      <AppBar color="background.paper" position="sticky">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            FeelGood Tracker
+          <Typography color="text.primary" variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            FeelGood
           </Typography>
         </Toolbar>
       </AppBar>
@@ -54,9 +50,9 @@ export const MobileLayout = () => {
             icon={<FitnessCenter />}
           />
           <BottomNavigationAction
-            label="Exercises"
-            value="/user-exercises"
-            icon={<FormatListBulleted />}
+            label="History"
+            value="/history"
+            icon={<HistoryOutlinedIcon />}
           />
           <BottomNavigationAction
             label="Profile"

@@ -35,18 +35,15 @@ const SettingForm = ({ profile }) => {
         </Typography>
       </Box>
 
-      <Paper
+      <Box
         elevation={0}
         sx={{
           display: "flex",
           flexDirection: "column",
           p: 3,
-          borderRadius: 3,
-          border: "1px solid",
-          borderColor: "divider",
         }}
       >
-        <UploadAvatar currentAvatarUrl={profile?.avatar_url} />
+        <UploadAvatar currentAvatarUrl={profile?.avatar_url}/>
 
         <Typography variant="subtitle2" color="text.secondary" gutterBottom>
           Personal information
@@ -70,7 +67,7 @@ const SettingForm = ({ profile }) => {
             Save Changes
           </AppButton>
         </Box>
-      </Paper>
+      </Box>
     </Box>
   );
 };

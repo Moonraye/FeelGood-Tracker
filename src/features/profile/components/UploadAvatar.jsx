@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Badge } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 import AppAvatar from "../../../components/ui/AppAvatar";
 import ButtonBase from "@mui/material/ButtonBase";
 import { useAvatarMutation } from "../hooks/useAvatarMutation";
@@ -46,25 +47,55 @@ export default function UploadAvatar({ currentAvatarUrl }) {
         },
       }}
     >
-      <AppAvatar alt="Avatar" src={displayAvatar} />
+      <Badge
+        overlap="circular"
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        badgeContent={
+          <Box
+            sx={{
+              backgroundColor: "text.secondary", 
+              color: "white",
+              borderRadius: "50%",
+              width: 22,
+              height: 22,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              border: "2px solid",
+              borderColor: "background.paper", // Щоб рамка збігалася з фоном картки
+            }}
+          >
+            <EditIcon sx={{ fontSize: 14 }} />
+          </Box>
+        }
+      >
+        <Box sx={{ position: "relative" }}>
+          <AppAvatar
+            alt="Avatar"
+            src={displayAvatar}
+            sx={{ width: 60, height: 60 }}
+          />
 
-      {AvatarMutation.isPending && (
-        <Box
-          sx={{
-            position: "absolute",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: 'center',
-            width: '100%',
-            height: '100%',
-            borderRadius: '50%',
-            backgroundColor: 'rgba(255, 255, 255, 0.5)'
-          }}
-        >
-
-          <CircularProgress size={24} />
+          {AvatarMutation.isPending && (
+            <Box
+              sx={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                height: "100%",
+                borderRadius: "50%",
+                backgroundColor: "rgba(255, 255, 255, 0.5)",
+              }}
+            >
+              <CircularProgress size={24} />
+            </Box>
+          )}
         </Box>
-      )}
+      </Badge>
 
       <input
         type="file"
