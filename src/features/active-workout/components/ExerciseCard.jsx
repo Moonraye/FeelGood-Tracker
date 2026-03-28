@@ -13,7 +13,7 @@ export const ExerciseCard = ({
   onUpdateExerciseNote,
 }) => {
   return (
-    <Paper elevation={1} sx={{ p: 2, mb: 2, borderRadius: 3 }}>
+    <Paper elevation={1} sx={{ p: 2, m: 2, borderRadius: 3 }}>
       <Box
         sx={{
           display: "flex",

@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Divider } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { useLogoutMutation } from "../features/auth/hooks/useAuthMutation";
 import { useAuthStore } from "../store/useAuthStore";
 import { useProfileQuery } from "../features/profile/hooks/useProfileQuery"
@@ -9,6 +9,11 @@ import { useNavigate } from "react-router-dom";
 
 import { ProfileHeader } from "../features/profile/components/ProfileHeader";
 import { ProfileStats } from "../features/profile/components/ProfileStats";
+
+import { formatJoinDate } from "../features/profile/utils/dateFormatter";
+
+import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 
 export const Profile = () => {
   const navigate = useNavigate();
@@ -46,29 +51,29 @@ export const Profile = () => {
           <ProfileHeader
             avatarUrl={profile?.avatar_url}
             displayName={profile?.display_name}
+            joinedDate={formatJoinDate(user.created_at)}
           />
 
           <ProfileStats workoutsCount={stats?.workoutsCount || 0}
             favoriteExercise={stats?.favoriteExercise || "N/A"}/>
 
-          <Box sx={{ mt: 3, pt: 2, border: "1px solid", borderRadius: 1 }}>
+          <Box sx={{ mt: 3, borderRadius: 1 }}>
             <AppButton
-              variant="outlined"
+              color="background.paper"
               onClick={() => navigate("/settings")}
-              sx={{ border: 0 }}
+              sx={{ border: 0,}}
             >
+              <ModeEditOutlineIcon />
               Personal Info
             </AppButton>
-            <Divider />
-
             <AppButton
               onClick={handleLogout}
               color="error"
-              variant="outlined"
               isLoading={logoutMutation.isPending}
               disabled={logoutMutation.isPending}
-              sx={{ border: 0 }}
+              sx={{ mt: 1 }}
             >
+              <LogoutOutlinedIcon />
               Logout
             </AppButton>
           </Box>

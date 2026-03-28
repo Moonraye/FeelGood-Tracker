@@ -15,7 +15,7 @@ export const AppButton = ({
       color={color}
       fullWidth={fullWidth}
       disabled={isLoading || props.disabled}
-      sx={{ minHeight: "48px", ...props.sx }}
+      sx={{ minHeight: "32px", ...props.sx }}
       {...props}
     >
       {isLoading ? <CircularProgress size={24} color="inherit" /> : children}

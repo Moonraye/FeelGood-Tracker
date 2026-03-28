@@ -20,7 +20,13 @@ export const ActiveWorkout = () => {
   } = useActiveWorkoutStore();
 
   return (
-    <Box>
+    <Box sx={{
+      display: 'flex', 
+      flexDirection: 'column', 
+      height: '100vh', 
+      bgcolor: 'background.default',
+      alignItems: 'center',
+    }}>
       <ActiveWorkoutHeader />
 
       <Box sx={{ mt: 3 }}>
@@ -43,11 +49,9 @@ export const ActiveWorkout = () => {
           ))
         )}
       </Box>
-
       <AppButton
         variant="contained"
-        color="primary"
-        sx={{ mt: 2 }}
+        sx={{ bgcolor: 'primary.dark', width: '90%' }}
         onClick={() => navigate("/add-exercise")}
       >
         + Add Exercise

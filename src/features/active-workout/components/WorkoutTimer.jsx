@@ -31,7 +31,7 @@ export const WorkoutTimer = () => {
   };
 
   return (
-    <Typography variant="h6" fontWeight="bold" color="primary">
+    <Typography variant="button" color="primary">
         {formatTime(elapsedTime)}
     </Typography>
   )
