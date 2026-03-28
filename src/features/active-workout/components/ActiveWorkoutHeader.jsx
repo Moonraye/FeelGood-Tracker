@@ -1,7 +1,7 @@
 import { Box, IconButton, InputBase } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useActiveWorkoutStore } from "../../../store/useActiveWorkoutStore";
-import { useSaveWorkoutMutation } from "../hooks/useWorkoutMutation";
+import { useActiveWorkoutStore } from "../store/useActiveWorkoutStore";
+import { useSaveWorkoutMutation } from "../hooks/useSaveWorkoutMutation";
 import { AppButton } from "../../../components/ui/AppButton";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { WorkoutTimer } from "./WorkoutTimer";

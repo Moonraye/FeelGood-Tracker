@@ -9,8 +9,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
 
-import { useActiveWorkoutStore } from "../store/useActiveWorkoutStore";
-import { ExerciseSearchList } from "../features/workouts/components/ExerciseSearchList";
+import { useActiveWorkoutStore } from "../features/active-workout/store/useActiveWorkoutStore";
+import { ExerciseSearchList } from "../features/exercise-library/components/ExerciseSearchList";
 
 export const SelectExercise = () => {
   const navigate = useNavigate();

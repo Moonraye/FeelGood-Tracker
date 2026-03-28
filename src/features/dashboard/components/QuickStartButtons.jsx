@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { AppButton } from "../../../components/ui/AppButton";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
-import { useActiveWorkoutStore } from "../../../store/useActiveWorkoutStore";
+import { useActiveWorkoutStore } from "../../active-workout/store/useActiveWorkoutStore";
 
 export const QuickStartButtons = () => {
   const navigate = useNavigate();

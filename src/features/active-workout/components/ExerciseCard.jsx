@@ -1,19 +1,17 @@
 import { Box, Paper, Typography, IconButton, InputBase } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { useActiveWorkoutStore } from "../../../store/useActiveWorkoutStore";
 import { AppButton } from "../../../components/ui/AppButton";
 import { ExerciseSetRow } from "./ExerciseSetRow";
 
-export const ExerciseCard = ({ exercise }) => {
-  const {
-    addSet,
-    updateSet,
-    toggleSetCompletion,
-    removeExercise,
-    removeSet,
-    updateExerciseNote,
-  } = useActiveWorkoutStore();
-
+export const ExerciseCard = ({
+  exercise,
+  onAddSet,
+  onUpdateSet,
+  onToggleSetCompletion,
+  onRemoveExercise,
+  onRemoveSet,
+  onUpdateExerciseNote,
+}) => {
   return (
     <Paper elevation={1} sx={{ p: 2, mb: 2, borderRadius: 3 }}>
       <Box
@@ -30,7 +28,7 @@ export const ExerciseCard = ({ exercise }) => {
         <IconButton
           size="small"
           color="error"
-          onClick={() => removeExercise(exercise.id)}
+          onClick={() => onRemoveExercise(exercise.id)}
         >
           <DeleteOutlineIcon />
         </IconButton>
@@ -63,14 +61,14 @@ export const ExerciseCard = ({ exercise }) => {
       </Box>
 
       {exercise.sets.map((set, index) => (
-          <ExerciseSetRow
+        <ExerciseSetRow
           key={set.id}
           exerciseId={exercise.id}
           set={set}
           index={index}
-          onUpdateSet={updateSet}
-          onToggleCompletion={toggleSetCompletion}
-          onRemoveSet={removeSet}
+          onUpdateSet={onUpdateSet}
+          onToggleCompletion={onToggleSetCompletion}
+          onRemoveSet={onRemoveSet}
         />
       ))}
 
@@ -80,7 +78,7 @@ export const ExerciseCard = ({ exercise }) => {
           color="primary"
           fullWidth
           sx={{ mt: 1, bgcolor: "primary.light", color: "primary.dark" }}
-          onClick={() => addSet(exercise.id)}
+          onClick={() => onAddSet(exercise.id)}
         >
           + Add Set
         </AppButton>
@@ -89,13 +87,12 @@ export const ExerciseCard = ({ exercise }) => {
           multiline
           placeholder="Add notes for this exercise..."
           value={exercise.notes || ""}
-          onChange={(e) => updateExerciseNote(exercise.id, e.target.value)}
+          onChange={(e) => onUpdateExerciseNote(exercise.id, e.target.value)}
           sx={{
             fontSize: "0.875rem",
             color: "text.secondary",
             "& textarea": { padding: 0 },
-            mt: 1
-
+            mt: 1,
           }}
         >
           Add Description
