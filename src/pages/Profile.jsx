@@ -1,21 +1,25 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, DialogContentText } from "@mui/material";
 import { useLogoutMutation } from "../features/auth/hooks/useAuthMutation";
 import { useAuthStore } from "../store/useAuthStore";
 import { useProfileQuery } from "../features/profile/hooks/useProfileQuery"
 import { useUserStatsQuery } from "../features/dashboard/hooks/useUserStatsQuery";
 
+import { AppConfirmDialog } from "../components/ui/AppConfirmDialog";
 import { AppButton } from "../components/ui/AppButton";
 import { useNavigate } from "react-router-dom";
 
 import { ProfileHeader } from "../features/profile/components/ProfileHeader";
 import { ProfileStats } from "../features/profile/components/ProfileStats";
 
-import { formatJoinDate } from "../features/profile/utils/dateFormatter";
+import { formatDate } from "../utils/dateFormatter";
 
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import { useState } from "react";
+
 
 export const Profile = () => {
+  const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
   const navigate = useNavigate();
   const logoutMutation = useLogoutMutation();
   const user = useAuthStore((state) => state.user);
@@ -24,8 +28,13 @@ export const Profile = () => {
   const { data: stats, isLoading: isStatsLoading } = useUserStatsQuery();
 
   const handleLogout = () => {
-    logoutMutation.mutate();
+    logoutMutation.mutate(undefined, {
+      onSuccess: () => {
+        setIsLogoutDialogOpen(false);
+      }
+    });
   };
+
 
   if (isProfileLoading || isStatsLoading) {
     return (
@@ -51,7 +60,7 @@ export const Profile = () => {
           <ProfileHeader
             avatarUrl={profile?.avatar_url}
             displayName={profile?.display_name}
-            joinedDate={formatJoinDate(user.created_at)}
+            joinedDate={formatDate(user.created_at)}
           />
 
           <ProfileStats workoutsCount={stats?.workoutsCount || 0}
@@ -59,6 +68,7 @@ export const Profile = () => {
 
           <Box sx={{ mt: 3, borderRadius: 1 }}>
             <AppButton
+              fullWidth
               color="background.paper"
               onClick={() => navigate("/settings")}
               sx={{ border: 0,}}
@@ -67,15 +77,29 @@ export const Profile = () => {
               Personal Info
             </AppButton>
             <AppButton
-              onClick={handleLogout}
+              fullWidth
+              onClick={() => setIsLogoutDialogOpen(true)}
               color="error"
-              isLoading={logoutMutation.isPending}
-              disabled={logoutMutation.isPending}
               sx={{ mt: 1 }}
             >
               <LogoutOutlinedIcon />
               Logout
             </AppButton>
+
+            <AppConfirmDialog 
+              open={isLogoutDialogOpen}
+              onClose={() => setIsLogoutDialogOpen(false)}
+              onConfirm={handleLogout}
+              title="Confirm Logout"
+              confirmText="Logout"
+              cancelText="Cancel"
+              confirmColor="error"
+              isLoading={logoutMutation.isPending}
+            >
+              <DialogContentText>
+                Are you sure you want to logout?
+              </DialogContentText>
+            </AppConfirmDialog>
           </Box>
         </Box>
       )}

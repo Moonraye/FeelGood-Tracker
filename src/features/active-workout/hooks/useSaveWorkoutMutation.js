@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../../../config/supabase";
 import { useAuthStore } from "../../../store/useAuthStore";
+import { useActiveWorkoutStore } from "../store/useActiveWorkoutStore";
 import { extractExerciseNotes, prepareSetsForInsert } from "../utils/formatters";
 
 export const useSaveWorkoutMutation = () => {
@@ -13,6 +14,9 @@ export const useSaveWorkoutMutation = () => {
 
             const exerciseNotes = extractExerciseNotes(exercises);
 
+            const startTime = useActiveWorkoutStore.getState().startTime;
+            const durationInSeconds = Math.floor((Date.now() - startTime) / 1000);
+
             const {
                 data: workout,
                 error: workoutError
@@ -24,6 +28,7 @@ export const useSaveWorkoutMutation = () => {
                     is_completed: true,
                     is_template: false,
                     exercise_notes: exerciseNotes,
+                    duration: durationInSeconds,
                 })
                 .select()
                 .single();

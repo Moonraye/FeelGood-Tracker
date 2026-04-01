@@ -27,7 +27,7 @@ export const RegisterForm = ({ formik, registerMutation }) => {
         helperText={formik.touched.password && formik.errors.password}
       />
       <AppTextField
-        label="ConfirmPassword"
+        label="Confirm Password"
         type="password"
         name="confirmPassword"
         value={formik.values.confirmPassword}
@@ -45,6 +45,7 @@ export const RegisterForm = ({ formik, registerMutation }) => {
 
       <Box sx={{ mt: 3 }}>
         <AppButton
+          fullWidth
           type="submit"
           variant="contained"
           isLoading={registerMutation.isPending}

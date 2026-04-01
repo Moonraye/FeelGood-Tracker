@@ -34,6 +34,7 @@ export const LoginForm = ({ formik, loginMutation }) => {
 
         <Box sx={{ mt: 3 }}>
           <AppButton
+            fullWidth
             type="submit"
             variant="contained"
             isLoading={loginMutation.isPending}

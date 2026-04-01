@@ -5,12 +5,14 @@ import { useSaveWorkoutMutation } from "../hooks/useSaveWorkoutMutation";
 import { AppButton } from "../../../components/ui/AppButton";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { WorkoutTimer } from "./WorkoutTimer";
+import { useSnackbarStore } from "../../../store/useSnackbarStore";
 
 export const ActiveWorkoutHeader = () => {
   const navigate = useNavigate();
   const { startTime, exercises, clearWorkout, workoutName, setWorkoutName } =
     useActiveWorkoutStore();
   const saveWorkoutMutation = useSaveWorkoutMutation();
+  const showSnackbar = useSnackbarStore((state) => state.showSnackbar);
 
   const handleFinish = () => {
     saveWorkoutMutation.mutate(
@@ -23,12 +25,11 @@ export const ActiveWorkoutHeader = () => {
         onSuccess: () => {
           clearWorkout();
           navigate("/");
+          showSnackbar("Workout saved successfully");
         },
         onError: (error) => {
           console.log(error);
-          {
-            /* Додати alert для юзера */
-          }
+          showSnackbar("Error saving workout");
         },
       },
     );
