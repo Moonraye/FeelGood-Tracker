@@ -1,6 +1,10 @@
 import { Paper, Typography, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { AppButton } from "../../../components/ui/AppButton";
 
 export const RecentWorkout = ({ workout }) => {
+  const navigate = useNavigate();
+
   if (!workout) {
     return (
       <Box sx={{ mt: 4, px: 2, textAlign: "center" }}>
@@ -17,10 +21,23 @@ export const RecentWorkout = ({ workout }) => {
 
   return (
     <Box sx={{ mt: 4, px: 2 }}>
-      <Typography variant="h6" gutterBottom fontWeight="bold">
-        Recent History
-      </Typography>
-
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h6" gutterBottom fontWeight="bold">
+          Recent History
+        </Typography>
+        <AppButton 
+        onClick={() => navigate("/history")} 
+        variant="outlined" 
+        sx={{ border: 0 }}>
+          Full History
+        </AppButton>
+      </Box>
       <Paper elevation={1} sx={{ p: 2, borderRadius: 2 }}>
         <Typography variant="subtitle1" fontWeight="bold">
           {workout.name}
@@ -30,10 +47,10 @@ export const RecentWorkout = ({ workout }) => {
           {exerciseNames || "No exercises recorded"}
         </Typography>
 
-      {previewSets.length > 0 && (
-        <Box sx={{ display: "flex", gap: 1 }}>
-          {previewSets.map((set, index) => (
-            <Paper
+        {previewSets.length > 0 && (
+          <Box sx={{ display: "flex", gap: 1 }}>
+            {previewSets.map((set, index) => (
+              <Paper
                 key={set.id || index}
                 variant="outlined"
                 sx={{
@@ -44,11 +61,12 @@ export const RecentWorkout = ({ workout }) => {
                 }}
               >
                 <Typography variant="caption">
-                  Set {index + 1}: {set.weight ? `${set.weight}kg x ` : ""}{set.reps}
+                  Set {index + 1}: {set.weight ? `${set.weight}kg x ` : ""}
+                  {set.reps}
                 </Typography>
               </Paper>
-          ))}
-        </Box>
+            ))}
+          </Box>
         )}
       </Paper>
     </Box>

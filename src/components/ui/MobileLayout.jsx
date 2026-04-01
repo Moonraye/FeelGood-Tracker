@@ -19,7 +19,7 @@ export const MobileLayout = () => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-      <AppBar color="background.paper" position="sticky">
+      <AppBar position="sticky" sx={{ bgcolor:"background.paper" }}>
         <Toolbar>
           <Typography color="text.primary" variant="h6" component="div" sx={{ flexGrow: 1 }}>
             FeelGood

@@ -6,7 +6,7 @@ export const useActiveWorkoutStore = create(
     persist(
         immer((set) => ({
             isActive: false,
-            startTime: null,
+            startTime: Date.now(),
             exercises: [],
             workoutName: "New Workout",
 
@@ -19,7 +19,7 @@ export const useActiveWorkoutStore = create(
 
             clearWorkout: () => set((state) => {
                 state.isActive = false;
-                state.startTime = null;
+                state.startTime = Date.now()
                 state.workoutName = "New Workout";
                 state.exercises = [];
             }),

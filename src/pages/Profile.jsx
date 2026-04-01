@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { ProfileHeader } from "../features/profile/components/ProfileHeader";
 import { ProfileStats } from "../features/profile/components/ProfileStats";
 
-import { formatJoinDate } from "../features/profile/utils/dateFormatter";
+import { formatDate } from "../utils/dateFormatter";
 
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
@@ -60,7 +60,7 @@ export const Profile = () => {
           <ProfileHeader
             avatarUrl={profile?.avatar_url}
             displayName={profile?.display_name}
-            joinedDate={formatJoinDate(user.created_at)}
+            joinedDate={formatDate(user.created_at)}
           />
 
           <ProfileStats workoutsCount={stats?.workoutsCount || 0}
@@ -68,6 +68,7 @@ export const Profile = () => {
 
           <Box sx={{ mt: 3, borderRadius: 1 }}>
             <AppButton
+              fullWidth
               color="background.paper"
               onClick={() => navigate("/settings")}
               sx={{ border: 0,}}
@@ -76,6 +77,7 @@ export const Profile = () => {
               Personal Info
             </AppButton>
             <AppButton
+              fullWidth
               onClick={() => setIsLogoutDialogOpen(true)}
               color="error"
               sx={{ mt: 1 }}

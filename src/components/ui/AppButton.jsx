@@ -5,7 +5,7 @@ export const AppButton = ({
   children,
   variant = "contained",
   color = "primary",
-  fullWidth = true,
+  fullWidth = false,
   isLoading = false,
   ...props
 }) => {

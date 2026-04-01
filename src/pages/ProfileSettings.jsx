@@ -44,7 +44,7 @@ const SettingForm = ({ profile }) => {
   return (
     <Box>
       <Box sx={{ display: "flex", alignItems: "center", mb: 3, mt: 3 }}>
-        <IconButton onClick={() => navigate("/profile")} sx={{ mr: 1, ml: -1 }}>
+        <IconButton onClick={() => navigate("/profile")}>
           <ArrowBackIcon />
         </IconButton>
         <Typography variant="h6" fontWeight="bold">
