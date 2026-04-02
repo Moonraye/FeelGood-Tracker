@@ -2,19 +2,20 @@ import { alpha, createTheme } from '@mui/material/styles';
 
 export const getAppTheme = (mode) => createTheme({
   palette: {
+    mode,
     primary: {
       main: "#f15c12", 
       light: "#ff5722",
       dark: "#0c0b0b",
-      contrastText: "#ffffff",
+      contrastText: mode === 'light' ? "#ffffff" : "#000000",
     },
     background: {
-      default: "#f4f7f8",
-      paper: "#ffffff",  
+      default: mode === 'light' ? "#f4f7f8" : "#121212",
+      paper: mode === 'light' ? "#ffffff" : "#1e1e1e",
     },
     text: {
-      primary: "#18191b", 
-      secondary: "#424752", 
+      primary: mode === 'light' ? "#000000" : "#ffffff", 
+      secondary: mode === 'light' ? "#424752" : "#a0a0a0",
     },
   },
   shape: {
