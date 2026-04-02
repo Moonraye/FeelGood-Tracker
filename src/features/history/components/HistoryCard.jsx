@@ -5,41 +5,26 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { AppButton } from "../../../components/ui/AppButton";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { useDeleteWorkoutMutation } from "../hooks/useDeleteWorkoutMutation";
-import { useSnackbarStore } from "../../../store/useSnackbarStore";
-import { useState } from "react";
 import { AppConfirmDialog } from "../../../components/ui/AppConfirmDialog";
 import { DialogContentText } from "@mui/material";
+import { useDeleteWorkoutAction } from "../hooks/useDeleteWorkoutAction";
 
 export const HistoryCard = ({ workout }) => {
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-
-  const deleteMutation = useDeleteWorkoutMutation();
-  const showSnackbar = useSnackbarStore((state) => state.showSnackbar);
-
   const navigate = useNavigate();
+
+  const {
+    isDeleteDialogOpen,
+    setIsDeleteDialogOpen,
+    handleDeleteClick,
+    confirmDelete,
+    isPending,
+  } = useDeleteWorkoutAction(workout);
+
   const exerciseNames = [
     ...new Set(workout.sets?.map((s) => s.exercises?.name).filter(Boolean)),
   ].join(", ");
 
   const totalSets = workout.sets?.length || 0;
-
-  const handleDelete = (e) => {
-    e.stopPropagation();
-    setIsDeleteDialogOpen(true);
-  };
-
-  const confirmDelete = () => {
-    deleteMutation.mutate(workout.id, {
-      onSuccess: () => {
-        setIsDeleteDialogOpen(false);
-        showSnackbar("Workout deleted successfully", "success");
-      },
-      onError: () => {
-        showSnackbar("Failed to delete workout", "error");
-      },
-    });
-  };
 
   return (
     <>
@@ -56,7 +41,14 @@ export const HistoryCard = ({ workout }) => {
           <Typography variant="h6" fontWeight="bold">
             {workout.name}
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2, justifyContent: "space-between" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+              justifyContent: "space-between",
+            }}
+          >
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <EventAvailableIcon
@@ -89,13 +81,13 @@ export const HistoryCard = ({ workout }) => {
                 )}
               </Box>
             </Box>
-                    <IconButton 
-          onClick={handleDelete}
-          sx={{ color: "error.main" }}
-          size="small"
-        >
-          <DeleteOutlineIcon fontSize="small" />
-        </IconButton>
+            <IconButton
+              onClick={handleDeleteClick}
+              sx={{ color: "error.main" }}
+              size="small"
+            >
+              <DeleteOutlineIcon fontSize="small" />
+            </IconButton>
           </Box>
         </Box>
 
@@ -140,7 +132,7 @@ export const HistoryCard = ({ workout }) => {
         title="Delete Workout"
         confirmText="Delete"
         confirmColor="error"
-        isLoading={deleteMutation.isPending}
+        isLoading={isPending}
       >
         <DialogContentText>
           Are you sure you want to delete "{workout.name}"? This action cannot

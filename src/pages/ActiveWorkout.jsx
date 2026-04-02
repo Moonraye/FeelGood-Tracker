@@ -9,24 +9,18 @@ import { AppButton } from "../components/ui/AppButton";
 export const ActiveWorkout = () => {
   const navigate = useNavigate();
 
-  const {
-    exercises,
-    addSet,
-    updateSet,
-    toggleSetCompletion,
-    removeExercise,
-    removeSet,
-    updateExerciseNote,
-  } = useActiveWorkoutStore();
+  const exercises = useActiveWorkoutStore((state) => state.exercises);
 
   return (
-    <Box sx={{
-      display: 'flex', 
-      flexDirection: 'column', 
-      height: '100vh', 
-      bgcolor: 'background.default',
-      alignItems: 'center',
-    }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+        bgcolor: "background.default",
+        alignItems: "center",
+      }}
+    >
       <ActiveWorkoutHeader />
 
       <Box sx={{ mt: 3 }}>
@@ -36,26 +30,17 @@ export const ActiveWorkout = () => {
           </Typography>
         ) : (
           exercises.map((exercise) => (
-            <ExerciseCard
-              key={exercise.id}
-              exercise={exercise}
-              onAddSet={addSet}
-              onUpdateSet={updateSet}
-              onToggleSetCompletion={toggleSetCompletion}
-              onRemoveExercise={removeExercise}
-              onRemoveSet={removeSet}
-              onUpdateExerciseNote={updateExerciseNote}
-            />
+            <ExerciseCard key={exercise.id} exercise={exercise} />
           ))
         )}
       </Box>
-      <AppButton
-        variant="contained"
-        sx={{ bgcolor: 'primary.dark', width: '90%' }}
-        onClick={() => navigate("/add-exercise")}
-      >
-        + Add Exercise
-      </AppButton>
+        <AppButton
+          variant="contained"
+          sx={{ bgcolor: "primary.dark", width: "90%", position: "absolute", bottom: 16 }}
+          onClick={() => navigate("/add-exercise")}
+        >
+          + Add Exercise
+        </AppButton>
     </Box>
   );
 };

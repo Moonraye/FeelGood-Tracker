@@ -1,45 +1,24 @@
 import { Box, IconButton, InputBase } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { useActiveWorkoutStore } from "../store/useActiveWorkoutStore";
-import { useSaveWorkoutMutation } from "../hooks/useSaveWorkoutMutation";
 import { AppButton } from "../../../components/ui/AppButton";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { WorkoutTimer } from "./WorkoutTimer";
-import { useSnackbarStore } from "../../../store/useSnackbarStore";
+
+import { useActiveWorkoutStore } from "../store/useActiveWorkoutStore";
+import { useFinishWorkoutAction } from "../hooks/useFinishWorkoutAction";
+import { useNavigate } from "react-router-dom";
 
 export const ActiveWorkoutHeader = () => {
   const navigate = useNavigate();
-  const { startTime, exercises, clearWorkout, workoutName, setWorkoutName } =
-    useActiveWorkoutStore();
-  const saveWorkoutMutation = useSaveWorkoutMutation();
-  const showSnackbar = useSnackbarStore((state) => state.showSnackbar);
+  const workoutName = useActiveWorkoutStore((state) => state.workoutName);
+  const setWorkoutName = useActiveWorkoutStore((state) => state.setWorkoutName);
 
-  const handleFinish = () => {
-    saveWorkoutMutation.mutate(
-      {
-        name: workoutName,
-        startTime,
-        exercises,
-      },
-      {
-        onSuccess: () => {
-          clearWorkout();
-          navigate("/");
-          showSnackbar("Workout saved successfully");
-        },
-        onError: (error) => {
-          console.log(error);
-          showSnackbar("Error saving workout");
-        },
-      },
-    );
-  };
+  const { handleFinish, isPending, canFinish } = useFinishWorkoutAction();
 
   return (
-    <Box 
+    <Box
       sx={{
-        width: '100%',
-        p:1,
+        width: "100%",
+        p: 1,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -51,10 +30,17 @@ export const ActiveWorkoutHeader = () => {
     >
       <Box>
         <IconButton onClick={() => navigate(-1)}>
-        <ArrowBackIcon />
-      </IconButton>
+          <ArrowBackIcon />
+        </IconButton>
       </Box>
-      <Box sx={{ display: "flex", flexDirection: 'column',justifyContent:'center', alignItems: 'center', }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <InputBase
           value={workoutName}
           onChange={(e) => setWorkoutName(e.target.value)}
@@ -63,20 +49,19 @@ export const ActiveWorkoutHeader = () => {
             fontWeight: "bold",
           }}
           placeholder="Workout Name"
-          inputProps={{ style: { textAlign: 'center' } }}
+          inputProps={{ style: { textAlign: "center" } }}
         />
         <WorkoutTimer />
-
       </Box>
       <Box>
         <AppButton
           variant="contained"
           fullWidth
           onClick={handleFinish}
-          isLoading={saveWorkoutMutation.isPending}
-          disabled={saveWorkoutMutation.isPending || !exercises.length}
+          isLoading={isPending}
+          disabled={isPending || !canFinish}
           color="error"
-          sx={{ height: '40px' }}
+          sx={{ height: "40px" }}
         >
           Finish
         </AppButton>

@@ -2,16 +2,17 @@ import { Box, Paper, Typography, IconButton, InputBase } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { AppButton } from "../../../components/ui/AppButton";
 import { ExerciseSetRow } from "./ExerciseSetRow";
+import { useActiveWorkoutStore } from "../store/useActiveWorkoutStore";
 
-export const ExerciseCard = ({
-  exercise,
-  onAddSet,
-  onUpdateSet,
-  onToggleSetCompletion,
-  onRemoveExercise,
-  onRemoveSet,
-  onUpdateExerciseNote,
-}) => {
+export const ExerciseCard = ({ exercise }) => {
+
+  const {
+    addSet, 
+    removeExercise,
+    updateExerciseNote,
+  } = useActiveWorkoutStore();
+
+
   return (
     <Paper elevation={1} sx={{ p: 2, m: 2, borderRadius: 3 }}>
       <Box
@@ -28,7 +29,7 @@ export const ExerciseCard = ({
         <IconButton
           size="small"
           color="error"
-          onClick={() => onRemoveExercise(exercise.id)}
+          onClick={() => removeExercise(exercise.id)}
         >
           <DeleteOutlineIcon />
         </IconButton>
@@ -66,9 +67,7 @@ export const ExerciseCard = ({
           exerciseId={exercise.id}
           set={set}
           index={index}
-          onUpdateSet={onUpdateSet}
-          onToggleCompletion={onToggleSetCompletion}
-          onRemoveSet={onRemoveSet}
+
         />
       ))}
 
@@ -78,7 +77,7 @@ export const ExerciseCard = ({
           color="primary"
           fullWidth
           sx={{ mt: 1, bgcolor: "primary.light", color: "primary.dark" }}
-          onClick={() => onAddSet(exercise.id)}
+          onClick={() => addSet(exercise.id)}
         >
           + Add Set
         </AppButton>
@@ -87,7 +86,7 @@ export const ExerciseCard = ({
           multiline
           placeholder="Add notes for this exercise..."
           value={exercise.notes || ""}
-          onChange={(e) => onUpdateExerciseNote(exercise.id, e.target.value)}
+          onChange={(e) => updateExerciseNote(exercise.id, e.target.value)}
           sx={{
             fontSize: "0.875rem",
             color: "text.secondary",

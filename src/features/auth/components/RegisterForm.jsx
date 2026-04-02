@@ -1,40 +1,35 @@
 import { Box, Alert } from "@mui/material";
 import { AppTextField } from "../../../components/ui/AppTextField";
 import { AppButton } from "../../../components/ui/AppButton";
+import { useRegisterForm } from "../hooks/useRegisterForm";
 
+export const RegisterForm = () => {
+  const { formik, registerMutation } = useRegisterForm();
 
-export const RegisterForm = ({ formik, registerMutation }) => {
+  const getErrorProps = (fieldName) => ({
+    error: formik.touched[fieldName] && Boolean(formik.errors[fieldName]),
+    helperText: formik.touched[fieldName] && formik.errors[fieldName],
+  });
+  
   return (
     <form onSubmit={formik.handleSubmit}>
       <AppTextField
         label="Email"
         type="email"
-        name="email"
-        value={formik.values.email}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={formik.touched.email && Boolean(formik.errors.email)}
-        helperText={formik.touched.email && formik.errors.email}
+        {...formik.getFieldProps('email')}
+        {...getErrorProps('email')}
       />
       <AppTextField
         label="Password"
         type="password"
-        name="password"
-        value={formik.values.password}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={formik.touched.password && Boolean(formik.errors.password)}
-        helperText={formik.touched.password && formik.errors.password}
+        {...formik.getFieldProps('password')}
+        {...getErrorProps('password')}
       />
       <AppTextField
         label="Confirm Password"
         type="password"
-        name="confirmPassword"
-        value={formik.values.confirmPassword}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-        helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+        {...formik.getFieldProps('confirmPassword')}
+        {...getErrorProps('confirmPassword')}
       />
 
       {registerMutation.isError && (

@@ -1,7 +1,5 @@
-import { Box, Tab, Tabs, Typography} from "@mui/material";
-import { useLoginForm } from "../hooks/useLoginForm";
 import { useState } from "react";
-import { useRegisterForm } from "../hooks/useRegisterForm";
+import { Box, Tab, Tabs, Typography} from "@mui/material";
 import { LoginForm } from "./LoginForm";
 import { RegisterForm } from "./RegisterForm";
 
@@ -11,9 +9,6 @@ const AuthForm = () => {
   const handleTabChange = (event, newValue) => {
     setTabIndex(newValue);
   };
-
-  const { formik: loginFormik, loginMutation } = useLoginForm();
-  const { formik: registerFormik, registerMutation } = useRegisterForm();
 
   return (
     <Box
@@ -44,13 +39,7 @@ const AuthForm = () => {
         </Tabs>
       </Box>
 
-      {tabIndex === 0 && (
-        <LoginForm formik={loginFormik} loginMutation={loginMutation} />
-      )
-    }
-      {tabIndex === 1 && (
-        <RegisterForm formik={registerFormik} registerMutation={registerMutation} />
-      )}
+      {tabIndex === 0 ? <LoginForm /> : <RegisterForm />}
     </Box>
   );
 };
