@@ -3,7 +3,7 @@ import { useExerciseMutation } from "./useUserExerciseMutation";
 import { userExerciseSchema } from "../schema/userExerciseSchema";
 import { useNavigate } from "react-router-dom";
 
-export const useCreateExerciseForm = (onSuccessCallback) => {
+export const useCreateExerciseForm = ({ onSuccess }) => {
     const exerciseMutation = useExerciseMutation();
     const navigate = useNavigate();
 
@@ -18,8 +18,7 @@ export const useCreateExerciseForm = (onSuccessCallback) => {
             exerciseMutation.mutate(values, {
                 onSuccess: () => {
                     resetForm();
-                    if(onSuccessCallback) onSuccessCallback();
-                    navigate(-1);
+                    if(onSuccess) onSuccess();
                 },
                 onError: (error) => {
                     console.log(error);

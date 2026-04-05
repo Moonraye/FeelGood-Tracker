@@ -3,6 +3,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { HistoryCard } from "../features/history/components/HistoryCard";
 import { useWorkoutHistoryQuery } from "../features/history/hooks/useWorkoutHistoryQuery";
 import { useNavigate } from "react-router-dom";
+import { PageHeader } from "../components/ui/PageHeader";
 
 export const History = () => {
   const { data: workouts, isLoading } = useWorkoutHistoryQuery();
@@ -10,27 +11,7 @@ export const History = () => {
 
   return (
     <Box sx={{ p: 2, pb: 10 }}>
-      <Box
-        sx={{
-          position: "sticky",
-          top: 56, 
-          display: "flex",
-          alignItems: "center",
-          mb: 3,
-          bgcolor: "background.default",
-          zIndex: 10, 
-          py: 2,
-          mx: -2, 
-          px: 2,
-        }}
-      >
-        <IconButton onClick={() => navigate(-1)}>
-          <ArrowBackIcon />
-        </IconButton>
-        <Typography variant="h5" fontWeight="bold">
-          Workout History
-        </Typography>
-      </Box>
+      <PageHeader title="Workout History" showBack={true} />
 
       {isLoading ? (
         <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>

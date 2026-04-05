@@ -4,12 +4,17 @@ import { AppButton } from "../../../components/ui/AppButton";
 import { useCreateExerciseForm } from "../hooks/useCreateExerciseForm";
 import { useMuscleGroupsQuery } from "../hooks/useMuscleGroupsQuery";
 
-export const CreateExerciseForm = () => {
-  const { formik, exerciseMutation } = useCreateExerciseForm();
+export const CreateExerciseForm = ({ onSuccess }) => {
+  const { formik, exerciseMutation } = useCreateExerciseForm({ onSuccess });
   const { data: muscleGroups = [], isLoading: isMuscleGroupsLoading } = useMuscleGroupsQuery();
 
-  return (  
-    <Box sx={{ p: 2, flexGrow: 1 }}>
+  const getErrorProps = (fieldName) => ({
+    error: formik.touched[fieldName] && Boolean(formik.errors[fieldName]),
+    helperText: formik.touched[fieldName] && formik.errors[fieldName],
+  });
+
+  return (
+    <Box sx={{ flexGrow: 1 }}>
       <form onSubmit={formik.handleSubmit}>
         <Paper
           elevation={0}
@@ -26,12 +31,8 @@ export const CreateExerciseForm = () => {
           <AppTextField
             label="Exercise Name"
             name="name"
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.name && Boolean(formik.errors.name)}
-            helperText={formik.touched.name && formik.errors.name}
-            placeholder="e.g. Weighted Pull-ups"
+            {...formik.getFieldProps("name")}
+            {...getErrorProps("name")}
           />
 
           <AppTextField
@@ -39,17 +40,12 @@ export const CreateExerciseForm = () => {
             fullWidth
             label="Muscle Group"
             name="muscle_group"
-            value={formik.values.muscle_group}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={
-              formik.touched.muscle_group && Boolean(formik.errors.muscle_group)
-            }
-            helperText={
-              formik.touched.muscle_group && formik.errors.muscle_group
-            }
+            {...formik.getFieldProps("muscle_group")}
+            {...getErrorProps("muscle_group")}
             InputProps={{
-                endAdornment: isMuscleGroupsLoading ? <CircularProgress size={20}/> : null
+              endAdornment: isMuscleGroupsLoading ? (
+                <CircularProgress size={20} />
+              ) : null,
             }}
             disabled={isMuscleGroupsLoading}
           >
@@ -65,18 +61,16 @@ export const CreateExerciseForm = () => {
             name="description"
             multiline
             rows={3}
-            value={formik.values.description}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={
-              formik.touched.description && Boolean(formik.errors.description)
-            }
-            helperText={formik.touched.description && formik.errors.description}
-            placeholder="Add any specific notes..."
+            {...formik.getFieldProps("description")}
+            {...getErrorProps("description")}
           />
 
           <Box sx={{ mt: 2 }}>
-            <AppButton type="submit" isLoading={exerciseMutation.isPending}>
+            <AppButton
+              fullWidth
+              type="submit"
+              isLoading={exerciseMutation.isPending}
+            >
               Save Exercise
             </AppButton>
           </Box>

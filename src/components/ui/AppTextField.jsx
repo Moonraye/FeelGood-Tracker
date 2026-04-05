@@ -18,6 +18,7 @@ export const AppTextField = ({
       variant={variant}
       required={required}
       error={error}
+      helperText={helperText}
       type={type}
       placeholder={placeholder}
       margin="normal"
@@ -25,3 +26,4 @@ export const AppTextField = ({
     />
   );
 };
+

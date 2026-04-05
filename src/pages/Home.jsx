@@ -1,36 +1,16 @@
 import { Box, CircularProgress } from "@mui/material";
 import { QuickStartButtons } from "../features/dashboard/components/QuickStartButtons";
-import { WorkoutStats } from "../features/dashboard/components/WorkoutStats";
-import { RecentWorkout } from "../features/dashboard/components/RecentWorkout";
-
-import { useUserStatsQuery } from "../features/dashboard/hooks/useUserStatsQuery";
-import { useRecentWorkoutQuery } from "../features/dashboard/hooks/useRecentWorkoutQuery";
+import { WorkoutStatsWidget } from "../widgets/dashboard/components/WorkoutStatsWidget";
+import { RecentWorkoutWidget } from "../widgets/dashboard/components/RecentWorkoutWidget";
 
 export const Home = () => {
-  const { data: stats, isLoading: isStatsLoading } = useUserStatsQuery();
-  const { data: recentWorkout, isLoading: isRecentLoading } = useRecentWorkoutQuery();
-
   return (
     <Box sx={{ pb: 10, pt: 2 }}>
-      <QuickStartButtons /> 
+      <QuickStartButtons />
 
-      {isStatsLoading ? (
-        <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
-          <CircularProgress size={24} />
-        </Box>
-      ) : (
-        <WorkoutStats 
-        streak={stats?.workoutsCount || 0} 
-        volume={stats?.monthlyVolume || 0} />
-      )}
+      <WorkoutStatsWidget />
 
-      {isRecentLoading ? (
-        <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
-          <CircularProgress size={24} />
-        </Box>
-      ) : (
-        <RecentWorkout workout={recentWorkout} />
-      )}   
+      <RecentWorkoutWidget />
     </Box>
   );
 };

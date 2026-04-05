@@ -1,29 +1,29 @@
 import { Box, Alert } from "@mui/material";
 import { AppTextField } from "../../../components/ui/AppTextField";
 import { AppButton } from "../../../components/ui/AppButton";
+import { useLoginForm } from "../hooks/useLoginForm";
 
-export const LoginForm = ({ formik, loginMutation }) => {
+export const LoginForm = () => {
+    const { formik, loginMutation } = useLoginForm();
+
+    const getErrorProps = (fieldName) => ({
+        error: formik.touched[fieldName] && Boolean(formik.errors[fieldName]),
+        helperText: formik.touched[fieldName] && formik.errors[fieldName],
+    })
+
     return (
         <form onSubmit={formik.handleSubmit}>
         <AppTextField
           label="Email"
           type="email"
-          name="email"
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.email && Boolean(formik.errors.email)}
-          helperText={formik.touched.email && formik.errors.email}
+          {...formik.getFieldProps('email')}
+          {...getErrorProps('email')}
         />
         <AppTextField
           label="Password"
           type="password"
-          name="password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.touched.password && Boolean(formik.errors.password)}
-          helperText={formik.touched.password && formik.errors.password}
+          {...formik.getFieldProps('password')}
+          {...getErrorProps('password')}
         />
 
         {loginMutation.isError && (

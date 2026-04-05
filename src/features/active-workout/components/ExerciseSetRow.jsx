@@ -2,15 +2,11 @@ import { Box, InputBase, Paper, Typography, IconButton} from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import { useActiveWorkoutStore } from "../store/useActiveWorkoutStore";
 
-export const ExerciseSetRow = ({
-  exerciseId,
-  set,
-  index,
-  onUpdateSet,
-  onToggleCompletion,
-  onRemoveSet,
-}) => {
+export const ExerciseSetRow = ({ set, exerciseId, index }) => {
+  const { updateSet, toggleSetCompletion, removeSet } = useActiveWorkoutStore();
+  
   return (
     <Box
       sx={{
@@ -39,7 +35,7 @@ export const ExerciseSetRow = ({
           placeholder="-"
           value={set.weight || ""}
           onChange={(e) =>
-            onUpdateSet(exerciseId, set.id, "weight", e.target.value)
+            updateSet(exerciseId, set.id, "weight", e.target.value)
           }
           disabled={set.isCompleted}
         />
@@ -56,7 +52,7 @@ export const ExerciseSetRow = ({
           placeholder="-"
           value={set.reps}
           onChange={(e) =>
-            onUpdateSet(exerciseId, set.id, "reps", e.target.value)
+            updateSet(exerciseId, set.id, "reps", e.target.value)
           }
           disabled={set.isCompleted}
         />
@@ -73,7 +69,7 @@ export const ExerciseSetRow = ({
           placeholder="-"
           value={set.rpe}
           onChange={(e) =>
-            onUpdateSet(exerciseId, set.id, "rpe", e.target.value)
+            updateSet(exerciseId, set.id, "rpe", e.target.value)
           }
           disabled={set.isCompleted}
         />
@@ -83,14 +79,14 @@ export const ExerciseSetRow = ({
         <IconButton
           size="small"
           color={set.isCompleted ? "success" : "default"}
-          onClick={() => onToggleCompletion(exerciseId, set.id)}
+          onClick={() => toggleSetCompletion(exerciseId, set.id)}
         >
           {set.isCompleted ? <CheckCircleIcon /> : <CheckCircleOutlineIcon />}
         </IconButton>
         <IconButton
           size="small"
           color={set.isCompleted ? "success" : "default"}
-          onClick={() => onRemoveSet(exerciseId, set.id)}
+          onClick={() => removeSet(exerciseId, set.id)}
         >
           <RemoveCircleOutlineIcon />
         </IconButton>
