@@ -20,6 +20,7 @@ export const useWorkoutHistoryQuery = () => {
                         weight,
                         reps,
                         exercises (name),
+                        exercise_id,
                         rpe
                     )
                     

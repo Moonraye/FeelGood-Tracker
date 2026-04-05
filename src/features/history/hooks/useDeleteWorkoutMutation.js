@@ -17,6 +17,7 @@ export const useDeleteWorkoutMutation = () => {
             queryClient.invalidateQueries({ queryKey: ["workout_history"] });
             queryClient.invalidateQueries({ queryKey: ["user_stats"] });
             queryClient.invalidateQueries({ queryKey: ["recent_workout"] });
+            queryClient.invalidateQueries({ queryKey: ['templates'] });
         },
         onError: (error) => {
             console.error("Error deleting workout:", error);

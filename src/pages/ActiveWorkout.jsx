@@ -36,7 +36,7 @@ export const ActiveWorkout = () => {
       </Box>
         <AppButton
           variant="contained"
-          sx={{ bgcolor: "primary.dark", width: "90%", position: "absolute", bottom: 16 }}
+          sx={{ bgcolor: "primary.dark", width: "90%" }}
           onClick={() => navigate("/add-exercise")}
         >
           + Add Exercise

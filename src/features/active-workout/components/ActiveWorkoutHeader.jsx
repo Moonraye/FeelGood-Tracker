@@ -1,4 +1,10 @@
-import { Box, IconButton, InputBase } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  InputBase,
+  FormControlLabel,
+  Switch,
+} from "@mui/material";
 import { AppButton } from "../../../components/ui/AppButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { WorkoutTimer } from "./WorkoutTimer";
@@ -12,7 +18,13 @@ export const ActiveWorkoutHeader = () => {
   const workoutName = useActiveWorkoutStore((state) => state.workoutName);
   const setWorkoutName = useActiveWorkoutStore((state) => state.setWorkoutName);
 
-  const { handleFinish, isPending, canFinish } = useFinishWorkoutAction();
+  const {
+    handleFinish,
+    saveAsTemplate,
+    setSaveAsTemplate,
+    isPending,
+    canFinish,
+  } = useFinishWorkoutAction();
 
   return (
     <Box
@@ -53,7 +65,18 @@ export const ActiveWorkoutHeader = () => {
         />
         <WorkoutTimer />
       </Box>
-      <Box>
+      <Box sx={{ display: "flex", gap: 1 }}>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={saveAsTemplate}
+              onChange={(e) => setSaveAsTemplate(e.target.checked)}
+              color="primary"
+            />
+          }
+          label="Save as Template"
+          sx={{  }}
+        />
         <AppButton
           variant="contained"
           fullWidth

@@ -13,7 +13,6 @@ export const useSaveWorkoutMutation = () => {
             if (!user) throw new Error('No user found');
 
             const exerciseNotes = extractExerciseNotes(exercises);
-
             const startTime = useActiveWorkoutStore.getState().startTime;
             const durationInSeconds = Math.floor((Date.now() - startTime) / 1000);
 
@@ -45,10 +44,35 @@ export const useSaveWorkoutMutation = () => {
                 if (setsError) throw setsError;
             }
 
+            if (saveAsTemplate) {
+                const { data: template, error: templateError } = await supabase
+                    .from("workouts")
+                    .insert({
+                        user_id: user.id,
+                        name: `${name || 'New Workout'} (Template)`,
+                        is_completed: false,
+                        is_template: true,
+                        exercise_notes: exerciseNotes,
+                    })
+                    .select()
+                    .single();
+
+                if (!templateError && setsToInsert.length > 0) {
+                    const templateSets = setsToInsert.map(s => ({
+                        ...s,
+                        workout_id: template.id,
+                    }));
+                    await supabase
+                        .from("sets")
+                        .insert(templateSets);
+                }
+            }
+
             return workout;
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['recent_workouts'] });
+            queryClient.invalidateQueries({ queryKey: ['templates'] });
         }
     });
 }

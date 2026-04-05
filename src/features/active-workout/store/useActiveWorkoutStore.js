@@ -91,6 +91,37 @@ export const useActiveWorkoutStore = create(
                     if (targetSet) targetSet.isCompleted = !targetSet.isCompleted;
                 }
             }),
+            loadWorkoutFromHistory: (workoutName, dbSets) => set((state) => {
+                const exercisesMap = {};
+
+                dbSets.forEach((dbSet) => {
+                    const dbExercise = dbSet.exercises || dbSet.exercise || {};
+                    const exerciseId = dbSet.exercise_id || dbSet.exercise?.id || dbExercise.name || "Unknown";
+                    const exerciseName = dbExercise.name || "Unknown Exercise";
+
+                    if (!exercisesMap[exerciseId]) {
+                        exercisesMap[exerciseId] = {
+                            id: crypto.randomUUID(),
+                            exercise_id: exerciseId,
+                            name: exerciseName,
+                            sets: [],
+                            notes: "",
+                        };
+                    }
+
+                    exercisesMap[exerciseId].sets.push({
+                        id: crypto.randomUUID(),
+                        weight: dbSet.weight || "",
+                        reps: dbSet.reps || "",
+                        rpe: dbSet.rpe || "",
+                        isCompleted: false
+                    });
+                });
+
+                state.exercises = Object.values(exercisesMap);
+                state.workoutName = workoutName;
+                state.startTime = Date.now();
+            })
         })),
         {
             name: "active-workout-storage",

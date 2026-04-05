@@ -1,16 +1,14 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useWorkoutDetailsQuery } from "../features/history/hooks/useWorkoutDetailsQuery";
 import { formatDate } from "../utils/dateFormatter";
-import { CircularProgress, Typography } from "@mui/material";
-import { Box, Paper, Divider, IconButton } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { CircularProgress, Typography, Box } from "@mui/material";
 import { groupSetsByExercise } from "../features/history/utils/groupSetsByExercise";
 import { PageHeader } from "../components/ui/PageHeader";
 import { ExerciseSetsGroup } from "../features/history/components/ExerciseSetsGroup";
+import { WorkoutActionsWidget } from "../widgets/history/components/WorkoutActionsWidget";
 
 export const WorkoutDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { data: workout, isLoading } = useWorkoutDetailsQuery(id);
 
   if (isLoading) {
@@ -36,7 +34,9 @@ export const WorkoutDetails = () => {
       <PageHeader
         title={workout.name}
         subtitle={formatDate(workout.created_at)}
-      />
+      >
+        <WorkoutActionsWidget workout={workout} />
+      </PageHeader>
 
       {Object.entries(groupedSets || {}).map(([exerciseName, sets], index) => (
         <ExerciseSetsGroup
