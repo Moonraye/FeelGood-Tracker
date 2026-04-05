@@ -29,7 +29,7 @@ export const useFinishWorkoutAction = () => {
                 },
                 onError: (error) => {
                     console.log(error);
-                    showSnackbar("Error saving workout");
+                    showSnackbar("Error saving workout", 'error');
                 },
             },
         );

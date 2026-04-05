@@ -9,7 +9,7 @@ export const useSaveWorkoutMutation = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async ({ name, exercises, }) => {
+        mutationFn: async ({ name, exercises, saveAsTemplate }) => {
             if (!user) throw new Error('No user found');
 
             const exerciseNotes = extractExerciseNotes(exercises);
