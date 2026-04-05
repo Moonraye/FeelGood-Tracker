@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { CircularProgress, CssBaseline } from "@mui/material";
 
-import { getAppTheme } from "./config/theme";
 import { useAuthListener } from "./features/auth/hooks/useAuthListener";
 
 import { ProtectedRoute } from "./components/ProtectedRoute";
@@ -14,19 +13,21 @@ import { History } from "./pages/History";
 import { SelectExercise } from "./pages/SelectExercise";
 import { ActiveWorkout } from "./pages/ActiveWorkout";
 import AuthForm from "./features/auth/components/AuthForm";
-import { UserExercises } from "./pages/UserExercises";
+import { CreateUserExercise } from "./pages/CreateUserExercise";
 import { AppSnackBar } from "./components/ui/AppSnackbar";
 import { WorkoutDetails } from "./pages/WorkoutDetails";
+import { useThemeStore } from "./store/useThemeStore";
 
 function App() {
   const isInitialized = useAuthListener();
+  const theme = useThemeStore((state) => state.theme);
 
   if (!isInitialized) {
     return <CircularProgress />;
   }
 
   return (
-    <ThemeProvider theme={getAppTheme("light")}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
         <Routes>
@@ -37,7 +38,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/settings" element={<ProfileSettings />} />
-              <Route path="/user-exercises" element={<UserExercises />} />
+              <Route path="/user-exercises" element={<CreateUserExercise />} />
               <Route path="/history" element={<History />} />
             </Route>
 
