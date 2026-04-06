@@ -42,7 +42,7 @@ export const WorkoutDetails = () => {
         <ExerciseSetsGroup
           key={index}
           exerciseName={exerciseName}
-          sets={sets}
+          sets={sets}       
         />
       ))}
     </Box>

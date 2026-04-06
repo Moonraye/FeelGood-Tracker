@@ -1,7 +1,7 @@
 import { BottomNavigation, BottomNavigationAction, Paper } from "@mui/material";
 import { FitnessCenter, Person } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
-import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
+import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
 
 export const AppBottomNavigation = ({}) => {
   const navigate = useNavigate();
@@ -9,7 +9,15 @@ export const AppBottomNavigation = ({}) => {
 
   return (
     <Paper
-      sx={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 1000 }}
+      sx={{
+        position: "fixed",
+        bottom: 0,
+        width: "100%",
+        maxWidth: { xs: "100%", sm: "600px", md: "768px" },
+        left: "auto",
+        right: "auto",
+        zIndex: 50,
+      }}
       elevation={3}
     >
       <BottomNavigation
