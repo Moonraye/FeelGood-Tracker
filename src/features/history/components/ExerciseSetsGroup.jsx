@@ -4,7 +4,7 @@ export const ExerciseSetsGroup = ({ exerciseName, sets }) => {
     if (!sets || sets.length === 0) return null;
 
     return(
-        <Paper elevation={0} sx={{ p: 2, mb: 2, borderRadius: 3 }}>
+        <Paper elevation={0} sx={{ p: 2, mt:2, mb: 2, borderRadius: 3 }}>
           <Typography
             variant="subtitle1"
             fontWeight="bold"

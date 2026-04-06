@@ -15,6 +15,7 @@ export const useWorkoutDetailsQuery = (workoutId) => {
                     sets (
                         id,
                         weight,
+                        set_number,
                         reps,
                         rpe,
                         exercise_id,

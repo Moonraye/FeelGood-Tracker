@@ -3,10 +3,16 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useActiveWorkoutStore } from "../store/useActiveWorkoutStore";
+import { sanitizeWorkoutInput } from "../utils/formatters";
 
 export const ExerciseSetRow = ({ set, exerciseId, index }) => {
   const { updateSet, toggleSetCompletion, removeSet } = useActiveWorkoutStore();
   
+  const handleInputChange = (field, value, allowDecimal = false) => {
+    const cleanValue = sanitizeWorkoutInput(field, value, allowDecimal);
+    updateSet(exerciseId, set.id, field, cleanValue);
+  };
+
   return (
     <Box
       sx={{
@@ -30,13 +36,11 @@ export const ExerciseSetRow = ({ set, exerciseId, index }) => {
       >
         <InputBase
           fullWidth
-          inputProps={{ min: 0, style: { textAlign: "center" } }}
-          type="number"
+          inputProps={{ min: 0, style: { textAlign: "center" }, inputMode: "decimal" }}
+          type="text"
           placeholder="-"
           value={set.weight || ""}
-          onChange={(e) =>
-            updateSet(exerciseId, set.id, "weight", e.target.value)
-          }
+          onChange={(e) => handleInputChange("weight", e.target.value, true)}
           disabled={set.isCompleted}
         />
       </Paper>
@@ -47,13 +51,11 @@ export const ExerciseSetRow = ({ set, exerciseId, index }) => {
       >
         <InputBase
           fullWidth
-          inputProps={{ min: 1, style: { textAlign: "center" } }}
-          type="number"
+          inputProps={{ min: 1, style: { textAlign: "center" }, inputMode: "decimal" }}
+          type="text"
           placeholder="-"
           value={set.reps}
-          onChange={(e) =>
-            updateSet(exerciseId, set.id, "reps", e.target.value)
-          }
+          onChange={(e) => handleInputChange("reps", e.target.value, false)}
           disabled={set.isCompleted}
         />
       </Paper>
@@ -64,13 +66,11 @@ export const ExerciseSetRow = ({ set, exerciseId, index }) => {
       >
         <InputBase
           fullWidth
-          inputProps={{ min: 0, max: 10, style: { textAlign: "center" } }}
-          type="number"
+          inputProps={{ min: 0, max: 10, style: { textAlign: "center" }, inputMode: "decimal" }}
+          type="text"   
           placeholder="-"
           value={set.rpe}
-          onChange={(e) =>
-            updateSet(exerciseId, set.id, "rpe", e.target.value)
-          }
+          onChange={(e) => handleInputChange("rpe", e.target.value, true)}
           disabled={set.isCompleted}
         />
       </Paper>

@@ -6,6 +6,7 @@ import { useAuthListener } from "./features/auth/hooks/useAuthListener";
 
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { MobileLayout } from "./components/ui/MobileLayout";
+import { AppLayout } from "./components/ui/AppLayout";
 import { Profile } from "./pages/Profile";
 import { ProfileSettings } from "./pages/ProfileSettings";
 import { Home } from "./pages/Home";
@@ -31,20 +32,25 @@ function App() {
       <CssBaseline />
       <Router>
         <Routes>
-          <Route path="/login" element={<AuthForm />} />
+          <Route element={<AppLayout />}>
+            <Route path="/login" element={<AuthForm />} />
 
-          <Route element={<ProtectedRoute />}>
-            <Route element={<MobileLayout />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/settings" element={<ProfileSettings />} />
-              <Route path="/user-exercises" element={<CreateUserExercise />} />
-              <Route path="/history" element={<History />} />
+            <Route element={<ProtectedRoute />}>
+              <Route element={<MobileLayout />}>
+                <Route path="/" element={<Home />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/settings" element={<ProfileSettings />} />
+                <Route
+                  path="/user-exercises"
+                  element={<CreateUserExercise />}
+                />
+                <Route path="/history" element={<History />} />
+              </Route>
+
+              <Route path="/active" element={<ActiveWorkout />} />
+              <Route path="/add-exercise" element={<SelectExercise />} />
+              <Route path="/history/:id" element={<WorkoutDetails />} />
             </Route>
-
-            <Route path="/active" element={<ActiveWorkout />} />
-            <Route path="/add-exercise" element={<SelectExercise />} />
-            <Route path="/history/:id" element={<WorkoutDetails />} />
           </Route>
         </Routes>
       </Router>

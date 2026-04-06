@@ -67,16 +67,15 @@ export const ExerciseCard = ({ exercise }) => {
           exerciseId={exercise.id}
           set={set}
           index={index}
-
         />
       ))}
 
       <Box>
         <AppButton
           variant="text"
-          color="primary"
+          color="text.secondary"
           fullWidth
-          sx={{ mt: 1, bgcolor: "primary.light", color: "primary.dark" }}
+          sx={{ mt: 1, bgcolor: "primary.",}}
           onClick={() => addSet(exercise.id)}
         >
           + Add Set
@@ -91,7 +90,7 @@ export const ExerciseCard = ({ exercise }) => {
             fontSize: "0.875rem",
             color: "text.secondary",
             "& textarea": { padding: 0 },
-            mt: 1,
+            m: 1,
           }}
         >
           Add Description
