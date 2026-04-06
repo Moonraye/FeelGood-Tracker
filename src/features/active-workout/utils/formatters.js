@@ -27,3 +27,24 @@ export const prepareSetsForInsert = (exercises, workoutId) => {
 
     return setsToInsert;
 }
+
+export const sanitizeWorkoutInput = (field, value, allowDecimal = false) => {
+    let sanitized = value.replace(/,/g, "."); 
+
+    if (allowDecimal) {
+      sanitized = sanitized.replace(/[^\d.]/g, ""); 
+      
+      const parts = sanitized.split(".");
+      if (parts.length > 2) {
+        sanitized = parts[0] + "." + parts.slice(1).join("");
+      }
+    } else {
+      sanitized = sanitized.replace(/[^\d]/g, ""); 
+    }
+
+    if (field === "rpe" && parseFloat(sanitized) > 10) {
+      sanitized = "10";
+    }
+
+    return sanitized;
+};
