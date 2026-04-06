@@ -4,19 +4,20 @@ export const getAppTheme = (mode) => createTheme({
   palette: {
     mode,
     primary: {
-      main: "#f15c12", 
-      light: "#ff5722",
-      dark: "#0c0b0b",
-      contrastText: mode === 'light' ? "#ffffff" : "#000000",
+      main: "#f15c12",
+      light: "#ff7b3f",
+      dark: "#c74200",
+      contrastText: "#ffffff",
     },
     background: {
-      default: mode === 'light' ? "#f4f7f8" : "#121212",
-      paper: mode === 'light' ? "#ffffff" : "#1e1e1e",
+      default: mode === 'light' ? "#f4f7f8" : "#0f172a",
+      paper: mode === 'light' ? "#ffffff" : "#1e293b",
     },
     text: {
-      primary: mode === 'light' ? "#000000" : "#ffffff", 
-      secondary: mode === 'light' ? "#424752" : "#a0a0a0",
+      primary: mode === 'light' ? "#0f172a" : "#f8fafc",
+      secondary: mode === 'light' ? "#64748b" : "#94a3b8",
     },
+    divider: mode === 'light' ? "#e2e8f0" : "#334155",
   },
   shape: {
     borderRadius: 12,
@@ -42,22 +43,31 @@ export const getAppTheme = (mode) => createTheme({
   components: {
     MuiPaper: {
       styleOverrides: {
-        root: {
-          boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)",
-          border: "1px solid #E5E7EB",
-        },
+        root: ({ theme }) => ({
+          boxShadow: theme.palette.mode === 'light'
+            ? "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)"
+            : "0px 4px 6px rgba(0, 0, 0, 0.4)",
+          border: `1px solid ${theme.palette.divider}`,
+          backgroundImage: 'none',
+        }),
       },
     },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: "none", 
-          fontWeight: 600,
-          padding: "10px 20px",
-        },
-      },
+
+    MuiCssBaseline: {
+      styleOverrides: `
+        /* Chrome, Safari, Edge, Opera */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        /* Firefox */
+        input[type="number"] {
+          -moz-appearance: textfield;
+        }
+      `,
     },
-  },
+  }
 });
 
 export default getAppTheme('light');

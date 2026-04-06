@@ -7,7 +7,7 @@ export const WorkoutSelectionWidget = ({ onOpenTemplates, onOpenHistory }) => {
     <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
       <AppButton
         sx={{
-          backgroundColor: "white",
+          backgroundColor: "background.paper",
           borderRadius: 2,
           gap: 1,
           justifyContent: "left",
@@ -23,14 +23,15 @@ export const WorkoutSelectionWidget = ({ onOpenTemplates, onOpenHistory }) => {
             p: 1,
           }}
         />
-        <Typography color={"text.secondary"}>Templates</Typography>
+        <Typography color={"text.primary"} variant="button">Templates</Typography>
       </AppButton>
       <AppButton
         sx={{
-          backgroundColor: "white",
+          backgroundColor: "background.paper",
           borderRadius: 2,
           gap: 1,
           justifyContent: "left",
+          color: "text.primary",
         }}
         onClick={onOpenHistory}
       >
@@ -43,7 +44,7 @@ export const WorkoutSelectionWidget = ({ onOpenTemplates, onOpenHistory }) => {
             p: 1,
           }}
         />
-        <Typography color={"text.secondary"}>History</Typography>
+        <Typography color={"text.primary"} variant="button">History</Typography>
       </AppButton>
     </Box>
   );

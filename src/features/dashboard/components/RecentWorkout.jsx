@@ -33,8 +33,8 @@ export const RecentWorkout = ({ workout }) => {
         </Typography>
         <AppButton 
         onClick={() => navigate("/history")} 
-        variant="outlined" 
-        sx={{ border: 0 }}>
+        variant="text" 
+        >
           Full History
         </AppButton>
       </Box>

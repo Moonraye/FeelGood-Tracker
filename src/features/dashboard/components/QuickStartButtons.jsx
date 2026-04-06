@@ -9,19 +9,23 @@ import { useDeleteWorkoutMutation } from "../../history/hooks/useDeleteWorkoutMu
 
 export const QuickStartButtons = () => {
   const {
-    isTemplatesOpen, setIsTemplatesOpen,
-    isHistoryOpen, setIsHistoryOpen,
-    templates, isTemplatesLoading, 
-    history, isHistoryLoading,
+    isTemplatesOpen,
+    setIsTemplatesOpen,
+    isHistoryOpen,
+    setIsHistoryOpen,
+    templates,
+    isTemplatesLoading,
+    history,
+    isHistoryLoading,
     handleStartSelectedWorkout,
-    startEmptyWorkout,   
+    startEmptyWorkout,
   } = useQuickStartActions();
 
   const deleteMutation = useDeleteWorkoutMutation();
 
   const handleDeleteTemplate = (id) => {
     deleteMutation.mutate(id);
-  }
+  };
 
   return (
     <Box>
@@ -43,38 +47,41 @@ export const QuickStartButtons = () => {
             alignItems: "center",
             borderRadius: 2,
             p: 3,
+            bgcolor: "primary.main",
           }}
           onClick={startEmptyWorkout}
         >
           <AddIcon sx={{ width: 40, height: 40 }} />
-          <Typography variant="subtitle1" fontWeight="bold">
+          <Typography
+            variant="body1"
+          >
             Empty Workout
           </Typography>
         </AppButton>
 
-          <WorkoutSelectionWidget
-            onOpenTemplates={() => setIsTemplatesOpen(true)}
-            onOpenHistory={() => setIsHistoryOpen(true)}
-          />
+        <WorkoutSelectionWidget
+          onOpenTemplates={() => setIsTemplatesOpen(true)}
+          onOpenHistory={() => setIsHistoryOpen(true)}
+        />
 
-          <WorkoutSelectionDialog
-            open={isTemplatesOpen}
-            onClose={() => setIsTemplatesOpen(false)}
-            title="Select a Template"
-            workouts={templates}
-            isLoading={isTemplatesLoading}
-            onSelect={handleStartSelectedWorkout}
-            onDelete={handleDeleteTemplate}
-          />
+        <WorkoutSelectionDialog
+          open={isTemplatesOpen}
+          onClose={() => setIsTemplatesOpen(false)}
+          title="Select a Template"
+          workouts={templates}
+          isLoading={isTemplatesLoading}
+          onSelect={handleStartSelectedWorkout}
+          onDelete={handleDeleteTemplate}
+        />
 
-          <WorkoutSelectionDialog
-            open={isHistoryOpen}
-            onClose={() => setIsHistoryOpen(false)}
-            title="Select a Workout"
-            workouts={history}
-            isLoading={isHistoryLoading}
-            onSelect={handleStartSelectedWorkout}
-          />
+        <WorkoutSelectionDialog
+          open={isHistoryOpen}
+          onClose={() => setIsHistoryOpen(false)}
+          title="Select a Workout"
+          workouts={history}
+          isLoading={isHistoryLoading}
+          onSelect={handleStartSelectedWorkout}
+        />
       </Box>
     </Box>
   );

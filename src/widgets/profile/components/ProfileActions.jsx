@@ -20,10 +20,12 @@ export const ProfileAction = () => {
   return(
               <Box sx={{ mt: 3, borderRadius: 1 }}>
             <AppButton
+              color="text.primary"
               fullWidth
-              color="background.paper"
               onClick={() => navigate("/settings")}
-              sx={{ border: 0,}}
+              sx={{ border: 0,
+                bgcolor: 'background.paper'
+              }}
             >
               <ModeEditOutlineIcon />
               Personal Info

@@ -30,8 +30,8 @@ export const ExerciseSetRow = ({ set, exerciseId, index }) => {
       >
         <InputBase
           fullWidth
-          inputProps={{ min: 0, style: { textAlign: "center" } }}
-          type="number"
+          inputProps={{ min: 0, style: { textAlign: "center" }, inputMode: "decimal" }}
+          type="text"
           placeholder="-"
           value={set.weight || ""}
           onChange={(e) =>
@@ -47,8 +47,8 @@ export const ExerciseSetRow = ({ set, exerciseId, index }) => {
       >
         <InputBase
           fullWidth
-          inputProps={{ min: 1, style: { textAlign: "center" } }}
-          type="number"
+          inputProps={{ min: 1, style: { textAlign: "center" }, inputMode: "decimal" }}
+          type="text"
           placeholder="-"
           value={set.reps}
           onChange={(e) =>
@@ -64,8 +64,8 @@ export const ExerciseSetRow = ({ set, exerciseId, index }) => {
       >
         <InputBase
           fullWidth
-          inputProps={{ min: 0, max: 10, style: { textAlign: "center" } }}
-          type="number"
+          inputProps={{ min: 0, max: 10, style: { textAlign: "center" }, inputMode: "decimal" }}
+          type="text"   
           placeholder="-"
           value={set.rpe}
           onChange={(e) =>
