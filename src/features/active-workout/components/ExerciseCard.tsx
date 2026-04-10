@@ -3,8 +3,13 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { AppButton } from "../../../components/ui/AppButton";
 import { ExerciseSetRow } from "./ExerciseSetRow";
 import { useActiveWorkoutStore } from "../store/useActiveWorkoutStore";
+import { WorkoutExercise } from "../store/useActiveWorkoutStore";
 
-export const ExerciseCard = ({ exercise }) => {
+interface ExerciseCardProps {
+  exercise: WorkoutExercise;
+}
+
+export const ExerciseCard = ({ exercise } : ExerciseCardProps) => {
 
   const {
     addSet, 
@@ -73,9 +78,8 @@ export const ExerciseCard = ({ exercise }) => {
       <Box>
         <AppButton
           variant="text"
-          color="text.secondary"
           fullWidth
-          sx={{ mt: 1, bgcolor: "primary.",}}
+          sx={{ mt: 1, bgcolor: "primary", color: "text.secondary"}}
           onClick={() => addSet(exercise.id)}
         >
           + Add Set
@@ -92,9 +96,7 @@ export const ExerciseCard = ({ exercise }) => {
             "& textarea": { padding: 0 },
             m: 1,
           }}
-        >
-          Add Description
-        </InputBase>
+        />
       </Box>
     </Paper>
   );

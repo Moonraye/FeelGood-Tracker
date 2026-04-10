@@ -1,5 +1,9 @@
-import Button from "@mui/material/Button";
+import { Button, ButtonProps } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+
+interface AppButtonProps extends ButtonProps {
+  isLoading?: boolean;
+}
 
 export const AppButton = ({
   children,
@@ -8,7 +12,7 @@ export const AppButton = ({
   fullWidth = false,
   isLoading = false,
   ...props
-}) => {
+} : AppButtonProps) => {
   return (
     <Button
       variant={variant}
