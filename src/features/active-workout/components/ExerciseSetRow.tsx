@@ -1,14 +1,29 @@
-import { Box, InputBase, Paper, Typography, IconButton} from "@mui/material";
+import { Box, InputBase, Paper, Typography, IconButton } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useActiveWorkoutStore } from "../store/useActiveWorkoutStore";
 import { sanitizeWorkoutInput } from "../utils/formatters";
+import { WorkoutSet } from "../store/useActiveWorkoutStore";
 
-export const ExerciseSetRow = ({ set, exerciseId, index }) => {
+interface ExerciseSetRowProps {
+  set: WorkoutSet;
+  exerciseId: string;
+  index: number;
+}
+
+export const ExerciseSetRow = ({
+  set,
+  exerciseId,
+  index,
+}: ExerciseSetRowProps) => {
   const { updateSet, toggleSetCompletion, removeSet } = useActiveWorkoutStore();
-  
-  const handleInputChange = (field, value, allowDecimal = false) => {
+
+  const handleInputChange = (
+    field: keyof WorkoutSet,
+    value: string,
+    allowDecimal: boolean = false,
+  ) => {
     const cleanValue = sanitizeWorkoutInput(field, value, allowDecimal);
     updateSet(exerciseId, set.id, field, cleanValue);
   };
@@ -36,7 +51,11 @@ export const ExerciseSetRow = ({ set, exerciseId, index }) => {
       >
         <InputBase
           fullWidth
-          inputProps={{ min: 0, style: { textAlign: "center" }, inputMode: "decimal" }}
+          inputProps={{
+            min: 0,
+            style: { textAlign: "center" },
+            inputMode: "decimal",
+          }}
           type="text"
           placeholder="-"
           value={set.weight || ""}
@@ -51,7 +70,11 @@ export const ExerciseSetRow = ({ set, exerciseId, index }) => {
       >
         <InputBase
           fullWidth
-          inputProps={{ min: 1, style: { textAlign: "center" }, inputMode: "decimal" }}
+          inputProps={{
+            min: 1,
+            style: { textAlign: "center" },
+            inputMode: "decimal",
+          }}
           type="text"
           placeholder="-"
           value={set.reps}
@@ -66,8 +89,13 @@ export const ExerciseSetRow = ({ set, exerciseId, index }) => {
       >
         <InputBase
           fullWidth
-          inputProps={{ min: 0, max: 10, style: { textAlign: "center" }, inputMode: "decimal" }}
-          type="text"   
+          inputProps={{
+            min: 0,
+            max: 10,
+            style: { textAlign: "center" },
+            inputMode: "decimal",
+          }}
+          type="text"
           placeholder="-"
           value={set.rpe}
           onChange={(e) => handleInputChange("rpe", e.target.value, true)}

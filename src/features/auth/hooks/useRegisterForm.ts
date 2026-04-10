@@ -1,13 +1,13 @@
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom"
 import { useRegisterMutation } from "./useAuthMutation";
-import { registerSchema } from "../schema/authSchema";
+import { registerSchema, RegisterFormValues } from "../schema/authSchema";
 
 export const useRegisterForm = () => {
     const navigate = useNavigate();
     const registerMutation = useRegisterMutation();
     
-    const formik = useFormik({
+    const formik = useFormik<RegisterFormValues>({
         initialValues: {
             email: '',
             password: '',

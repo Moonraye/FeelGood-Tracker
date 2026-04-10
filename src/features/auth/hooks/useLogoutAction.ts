@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useLogoutMutation } from "./useAuthMutation";
-import { useSnackbarStore } from "../../../store/useSnackbarStore";
 
 export const useLogoutAction = () => {
     const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
@@ -14,6 +13,7 @@ export const useLogoutAction = () => {
             onSuccess: () => {
                 setIsLogoutDialogOpen(false);
             },
+
         });
     };
 

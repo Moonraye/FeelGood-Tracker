@@ -2,15 +2,21 @@ import { Box, Alert } from "@mui/material";
 import { AppTextField } from "../../../components/ui/AppTextField";
 import { AppButton } from "../../../components/ui/AppButton";
 import { useRegisterForm } from "../hooks/useRegisterForm";
+import { RegisterFormValues } from "../schema/authSchema";
 
 export const RegisterForm = () => {
   const { formik, registerMutation } = useRegisterForm();
 
-  const getErrorProps = (fieldName) => ({
-    error: formik.touched[fieldName] && Boolean(formik.errors[fieldName]),
-    helperText: formik.touched[fieldName] && formik.errors[fieldName],
-  });
+    const getErrorProps = (fieldName: keyof RegisterFormValues) => {
+      const isTouched = formik.touched[fieldName];
+      const errorMessage = formik.errors[fieldName];
   
+      return {
+        error: Boolean(isTouched && errorMessage),
+        helperText: isTouched && errorMessage ? errorMessage : undefined,
+      };
+    }
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <AppTextField
@@ -34,7 +40,7 @@ export const RegisterForm = () => {
 
       {registerMutation.isError && (
         <Alert severity="error" sx={{ mt: 2, mb: 2 }}>
-          {registerMutation.error.message}
+          {registerMutation.error instanceof Error ? registerMutation.error.message : "Unknown error"}
         </Alert>
       )}
 

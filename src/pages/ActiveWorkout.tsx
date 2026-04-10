@@ -13,7 +13,7 @@ export const ActiveWorkout = () => {
   const exercises = useActiveWorkoutStore((state) => state.exercises);
 
   const bottomRef = useAutoScroll(exercises);
-
+  
   return (
     <Box
       sx={{

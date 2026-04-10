@@ -19,15 +19,17 @@ export const WorkoutTimer = () => {
     return () => clearInterval(interval);
   }, [startTime]);
 
-  const formatTime = (totalSeconds) => {
+  const formatTime = (totalSeconds: number): string => {
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
 
+    const pad = (num: number) => num.toString().padStart(2, "0");
+
     if (hours > 0) {
-      return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+      return `${hours}:${pad(minutes)}:${pad(seconds)}`;
     }
-    return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+    return `${pad(minutes)}:${pad(seconds)}`;
   };
 
   return (

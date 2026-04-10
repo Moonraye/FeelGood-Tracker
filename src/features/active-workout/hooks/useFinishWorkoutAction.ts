@@ -4,7 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { useActiveWorkoutStore } from "../store/useActiveWorkoutStore";
 import { useSaveWorkoutMutation } from "./useSaveWorkoutMutation";
 
-export const useFinishWorkoutAction = () => {
+interface FinishWorkoutAction {
+    handleFinish: () => void;
+    saveAsTemplate: boolean;
+    setSaveAsTemplate: (value: boolean) => void;
+    isPending: boolean;
+    canFinish: boolean;
+}
+
+export const useFinishWorkoutAction = (): FinishWorkoutAction => {
     const navigate = useNavigate();
     const { startTime, exercises, clearWorkout, workoutName } = useActiveWorkoutStore();
 
@@ -17,7 +25,7 @@ export const useFinishWorkoutAction = () => {
         saveWorkoutMutation.mutate(
             {
                 name: workoutName,
-                startTime,
+                startTime: startTime || Date.now(),
                 exercises,
                 saveAsTemplate,
             },
@@ -27,7 +35,7 @@ export const useFinishWorkoutAction = () => {
                     navigate("/");
                     showSnackbar(saveAsTemplate ? "Workout and template saved!" : "Workout saved successfully");
                 },
-                onError: (error) => {
+                onError: (error: any) => {
                     console.log(error);
                     showSnackbar("Error saving workout", 'error');
                 },
