@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Box, Tab, Tabs, Typography} from "@mui/material";
 import { LoginForm } from "./LoginForm";
 import { RegisterForm } from "./RegisterForm";
@@ -6,7 +6,7 @@ import { RegisterForm } from "./RegisterForm";
 const AuthForm = () => {
   const [tabIndex, setTabIndex] = useState(0);
 
-  const handleTabChange = (event, newValue) => {
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     setTabIndex(newValue);
   };
 

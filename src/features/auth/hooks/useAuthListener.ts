@@ -2,14 +2,14 @@ import { useEffect } from "react";
 import { supabase } from "../../../config/supabase";
 import { useAuthStore } from "../../../store/useAuthStore";
 
-export const useAuthListener = () => {
+export const useAuthListener = (): boolean => {
     const setAuth = useAuthStore((state) => state.setAuth);
     const isInitialized = useAuthStore((state) => state.isInitialized);
 
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session }, error }) => {
             if (error) {
-                console.error("Помилка отримання сесії:", error);
+                console.error("Error fetching session:", error);
             }
             setAuth(session);
         });

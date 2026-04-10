@@ -10,15 +10,21 @@ import {
   Chip,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
- 
-
-import { useExercisesQuery } from "../hooks/useExercisesQuery";
+import { ExerciseSummary, useExercisesQuery } from "../hooks/useExercisesQuery";
 import { AppTextField } from "../../../components/ui/AppTextField";
 
-export const ExerciseSearchList = ({ onSelect }) => {
+interface ExerciseSearchListProps {
+  onSelect: (exercise: ExerciseSummary) => void;
+}
+
+export const ExerciseSearchList = ({ onSelect }: ExerciseSearchListProps) => {
   const { data: exercises, isLoading } = useExercisesQuery();
   const [searchQuery, setSearchQuery] = useState("");
 
+  const handleSearchExercise = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setSearchQuery(event.target.value)
+  };
+  
   const filteredExercises =
     exercises?.filter((exercise) =>
       exercise.name.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -31,7 +37,7 @@ export const ExerciseSearchList = ({ onSelect }) => {
           label="Search"
           placeholder="Search exercise..."
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={handleSearchExercise}
           InputProps={{
             startAdornment: <SearchIcon color="action" sx={{ mr: 1 }} />,
           }}

@@ -9,6 +9,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { AppButton } from "../../../components/ui/AppButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
 import { WorkoutTimer } from "./WorkoutTimer";
 import { useActiveWorkoutStore } from "../store/useActiveWorkoutStore";
 import { useFinishWorkoutAction } from "../hooks/useFinishWorkoutAction";
@@ -26,6 +27,14 @@ export const ActiveWorkoutHeader = () => {
     isPending,
     canFinish,
   } = useFinishWorkoutAction();
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setWorkoutName(e.target.value);
+  };
+
+  const handleSaveAsTemplate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSaveAsTemplate(e.target.checked)
+  };
 
   return (
     <Box
@@ -60,7 +69,7 @@ export const ActiveWorkoutHeader = () => {
       >
         <InputBase
           value={workoutName}
-          onChange={(e) => setWorkoutName(e.target.value)}
+          onChange={handleNameChange}
           sx={{
             fontSize: "1.15rem",
             fontWeight: "bold",
@@ -88,7 +97,7 @@ export const ActiveWorkoutHeader = () => {
             icon={<BookmarkBorderIcon color="action" />}
             checkedIcon={<BookmarkIcon color="primary" />}
             checked={saveAsTemplate}
-            onChange={(e) => setSaveAsTemplate(e.target.checked)}
+            onChange={handleSaveAsTemplate}
             sx={{ p: 0.5 }}
           />
         </Tooltip>

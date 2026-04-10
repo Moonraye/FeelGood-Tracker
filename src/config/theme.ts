@@ -1,6 +1,7 @@
-import { alpha, createTheme } from '@mui/material/styles';
+import { createTheme, Theme } from '@mui/material/styles';
+import { PaletteMode } from '@mui/material';
 
-export const getAppTheme = (mode) => createTheme({
+export const getAppTheme = (mode: PaletteMode): Theme => createTheme({
   palette: {
     mode,
     primary: {
