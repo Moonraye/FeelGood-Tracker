@@ -7,7 +7,7 @@ export const useAvatarMutation = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async (file) => {
+        mutationFn: async (file: File): Promise<string> => {
             if (!user) throw new Error('No user');
 
             const fileExt = file.name.split('.').pop();

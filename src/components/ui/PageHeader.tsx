@@ -3,7 +3,13 @@ import { Box, Typography, IconButton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 
-export const PageHeader = ({ title, subtitle, showBack = true, children }) => {
+interface PageHeaderProps {
+  title: string | React.ReactNode;
+  subtitle?: string | React.ReactNode;
+  showBack?: boolean;
+  children?: React.ReactNode;
+}
+export const PageHeader = ({ title, subtitle, showBack = true, children }: PageHeaderProps) => {
   const navigate = useNavigate();
 
   return (

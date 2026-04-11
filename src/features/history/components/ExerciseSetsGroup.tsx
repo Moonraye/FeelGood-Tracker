@@ -1,6 +1,18 @@
 import { Box, Divider, Paper, Typography } from "@mui/material";
 
-export const ExerciseSetsGroup = ({ exerciseName, sets }) => {
+export interface ExerciseSetData {
+  id?: string | number;
+  weight?: string | number | null;
+  reps?: string | number | null;
+  rpe?: string | number | null;
+}
+
+interface ExerciseSetsGroupProps {
+  exerciseName: string;
+  sets?: ExerciseSetData[] | null;
+}
+
+export const ExerciseSetsGroup = ({ exerciseName, sets }: ExerciseSetsGroupProps) => {
     if (!sets || sets.length === 0) return null;
 
     return(

@@ -8,6 +8,8 @@ export const useWorkoutHistoryQuery = () => {
     return useQuery({
         queryKey: ['workout_history', user?.id],
         queryFn: async () => {
+            if (!user) throw new Error('User not authenticated');
+            
             const { data, error } = await supabase
                 .from('workouts')
                 .select(`

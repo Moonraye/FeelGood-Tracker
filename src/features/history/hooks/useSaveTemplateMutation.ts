@@ -2,13 +2,19 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../../../config/supabase";
 import { useAuthStore } from "../../../store/useAuthStore";
 import { prepareTemplateSets } from "../utils/prepareTemplateSets";
+import { DatabaseWorkoutSet } from "@/types/workout";
+
+export interface SaveTemplateInput {
+    name: string;
+    sets: DatabaseWorkoutSet[] | null;
+}
 
 export const useSaveTemplateMutation = () => {
     const user = useAuthStore((state) => state.user);
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async (originalWorkout) => {
+        mutationFn: async (originalWorkout: SaveTemplateInput) => {
             if (!user) throw new Error("User not authenticated");
 
             const { data: newWorkout, error: workoutError } = await supabase
@@ -38,5 +44,8 @@ export const useSaveTemplateMutation = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["templates"] });
         },
+        onError: (error: Error) => {
+            console.error("Failed to save template:", error.message);
+        }
     });
 };

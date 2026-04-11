@@ -1,13 +1,17 @@
 import { Paper, Box, Typography } from "@mui/material";
 import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOutlined";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
+
+interface ProfileStatsProps{
+  workoutsCount?: number;
+  favoriteExercise?: string;
+}
 export const ProfileStats = ({
   workoutsCount = 0,
   favoriteExercise = "N/A",
-}) => {
+}: ProfileStatsProps) => {
   return (
     <Box
-      elevation={0}
       sx={{
         display: "grid",
         gridTemplateColumns: "repeat(2, 1fr)",

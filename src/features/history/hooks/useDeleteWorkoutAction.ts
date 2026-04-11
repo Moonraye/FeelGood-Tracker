@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useDeleteWorkoutMutation } from "../../../hooks/api/useDeleteWorkoutMutation";
 import { useSnackbarStore } from "../../../store/useSnackbarStore";
+import { HistoryWorkoutData } from "../components/HistoryCard";
 
-export const useDeleteWorkoutAction = (workout) => {
+export const useDeleteWorkoutAction = (workout: HistoryWorkoutData) => {
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
     const deleteMutation = useDeleteWorkoutMutation();
     const showSnackbar = useSnackbarStore((state) => state.showSnackbar);
 
-    const handleDeleteClick = (e) => {
+    const handleDeleteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();    
         setIsDeleteDialogOpen(true);
     };

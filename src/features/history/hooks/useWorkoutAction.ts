@@ -2,8 +2,9 @@ import { useSaveTemplateMutation } from "./useSaveTemplateMutation";
 import { useActiveWorkoutStore } from "../../active-workout/store/useActiveWorkoutStore";
 import { useSnackbarStore } from "../../../store/useSnackbarStore";
 import { useNavigate } from "react-router-dom";
+import { SaveTemplateInput } from "./useSaveTemplateMutation";
 
-export const useWorkoutAction = (workout) => {
+export const useWorkoutAction = (workout: SaveTemplateInput) => {
     const navigate = useNavigate();
     const saveTemplateMutation = useSaveTemplateMutation();
     const loadWorkoutFromHistory = useActiveWorkoutStore((state) => state.loadWorkoutFromHistory);

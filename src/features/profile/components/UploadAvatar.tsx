@@ -6,13 +6,17 @@ import ButtonBase from "@mui/material/ButtonBase";
 import { useAvatarMutation } from "../hooks/useAvatarMutation";
 import { useSnackbarStore } from "../../../store/useSnackbarStore";
 
-export default function UploadAvatar({ currentAvatarUrl }) {
-  const [localPreview, setLocalPreview] = React.useState(null);
+interface UploadAvatarProps {
+  currentAvatarUrl?: string | null;
+}
+
+export default function UploadAvatar({ currentAvatarUrl }: UploadAvatarProps) {
+  const [localPreview, setLocalPreview] = React.useState<string | null>(null);
   const AvatarMutation = useAvatarMutation();
   const showSnackbar = useSnackbarStore((state) => state.showSnackbar);
 
 
-  const handleAvatarChange = (event) => {
+  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const objectUrl = URL.createObjectURL(file);
@@ -22,13 +26,13 @@ export default function UploadAvatar({ currentAvatarUrl }) {
         onSuccess: () => {
           setLocalPreview(null);
           URL.revokeObjectURL(objectUrl);
-          showSnackbar("Avatar updated successfully");
+          showSnackbar("Avatar updated successfully", "success");
         },
 
         onError: () => {
           setLocalPreview(null);
           URL.revokeObjectURL(objectUrl);
-          showSnackbar("Error updating avatar");
+          showSnackbar("Error updating avatar", "error");
         },
       });
     }
@@ -77,7 +81,7 @@ export default function UploadAvatar({ currentAvatarUrl }) {
         <Box sx={{ position: "relative" }}>
           <AppAvatar
             alt="Avatar"
-            src={displayAvatar}
+            src={displayAvatar || undefined}
             sx={{ width: 60, height: 60 }}
           />
 

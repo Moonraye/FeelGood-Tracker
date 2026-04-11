@@ -9,7 +9,28 @@ import { AppConfirmDialog } from "../../../components/ui/AppConfirmDialog";
 import { DialogContentText } from "@mui/material";
 import { useDeleteWorkoutAction } from "../hooks/useDeleteWorkoutAction";
 
-export const HistoryCard = ({ workout }) => {
+export interface HistoryWorkoutData {
+  id: string;
+  name: string;
+  created_at: string | null;
+  duration?: number | null;
+  sets?:
+    | {
+        id: string | number;
+        weight?: string | number | null;
+        reps?: string | number | null;
+        exercises?: {
+          name?: string;
+        } | null;
+      }[]
+    | null;
+}
+
+interface HistoryWorkoutProps {
+  workout: HistoryWorkoutData;
+}
+
+export const HistoryCard = ({ workout }: HistoryWorkoutProps) => {
   const navigate = useNavigate();
 
   const {

@@ -13,7 +13,16 @@ import { useUpdateProfileForm } from "../hooks/useUpdateProfileForm";
 
 import { PageHeader } from "../../../components/ui/PageHeader";
 
-export const ProfileSettingsForm = ({ profile }) => {
+export interface ProfileSettingsData {
+  display_name?: string | null;
+  avatar_url?: string | null;
+}
+
+interface ProfileSettingsFormProps {
+  profile?: ProfileSettingsData | null;
+}
+
+export const ProfileSettingsForm = ({ profile }: ProfileSettingsFormProps) => {
   const {
     displayName,
     setDisplayName,
@@ -29,7 +38,6 @@ export const ProfileSettingsForm = ({ profile }) => {
       <PageHeader title="Profile Settings" showBack={true} />
 
       <Box
-        elevation={0}
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -45,7 +53,7 @@ export const ProfileSettingsForm = ({ profile }) => {
         <AppTextField
           label="Name (Display name)"
           value={displayName}
-          onChange={(e) => setDisplayName(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDisplayName(e.target.value)}
           placeholder="Enter your name"
         />
 

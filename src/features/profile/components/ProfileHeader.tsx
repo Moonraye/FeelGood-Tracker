@@ -1,10 +1,15 @@
 import { Box, Typography } from "@mui/material";
 import AppAvatar from "../../../components/ui/AppAvatar";
 
-export const ProfileHeader = ({ avatarUrl, displayName, joinedDate }) => {
+interface ProfileHeaderProps {
+  avatarUrl?: string | null;
+  displayName?: string | null;
+  joinedDate?: string | null;
+}
+
+export const ProfileHeader = ({ avatarUrl, displayName, joinedDate }: ProfileHeaderProps) => {
     return (
         <Box
-            elevation={0}
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -17,7 +22,7 @@ export const ProfileHeader = ({ avatarUrl, displayName, joinedDate }) => {
             }}
           >
             <AppAvatar
-              src={avatarUrl}
+              src={avatarUrl || undefined}
               sx={{ width: 100, height: 100 }}
             />
             <Box sx={{ textAlign: "center" }}>
