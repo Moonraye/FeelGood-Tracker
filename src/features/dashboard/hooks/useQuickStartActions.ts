@@ -3,7 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useActiveWorkoutStore } from "../../active-workout/store/useActiveWorkoutStore";
 import { useTemplatesQuery } from "../../templates/hooks/useTemplatesQuery";
 import { useWorkoutHistoryQuery } from "../../history/hooks/useWorkoutHistoryQuery";
+import { DatabaseWorkoutSet } from "@/types/workout";
 
+
+export interface QuickStartWorkout {
+    name: string;
+    sets?: DatabaseWorkoutSet[] | null;
+}
 
 export const useQuickStartActions = () => {
     const navigate = useNavigate();
@@ -21,7 +27,7 @@ export const useQuickStartActions = () => {
         navigate("/active");
     }
 
-    const handleStartSelectedWorkout = (workout) => {
+    const handleStartSelectedWorkout = (workout: QuickStartWorkout) => {
         if (!workout || !workout.sets) return;
 
         setIsTemplatesOpen(false);
@@ -43,8 +49,6 @@ export const useQuickStartActions = () => {
         history,
         startEmptyWorkout,
         handleStartSelectedWorkout,
-
-
     };
 };
 

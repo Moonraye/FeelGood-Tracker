@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDeleteWorkoutMutation } from "./useDeleteWorkoutMutation";
+import { useDeleteWorkoutMutation } from "../../../hooks/api/useDeleteWorkoutMutation";
 import { useSnackbarStore } from "../../../store/useSnackbarStore";
 
 export const useDeleteWorkoutAction = (workout) => {

@@ -32,7 +32,7 @@ export const WorkoutStats = ({ streak = 0, volume = 0 }) => {
           <Typography variant="overline" color="text.secondary">
             Streak
           </Typography>
-          <Typography variant="outlined" fontWeight="bold">
+          <Typography variant="inherit" fontWeight="bold">
             {streak} days
           </Typography>
         </Box>
@@ -57,7 +57,7 @@ export const WorkoutStats = ({ streak = 0, volume = 0 }) => {
           <Typography variant="overline" color="text.secondary">
             Volume
           </Typography>
-          <Typography variant="outlined" fontWeight="bold">
+          <Typography variant="inherit" fontWeight="bold">
             {volume} kg
           </Typography>
         </Box>

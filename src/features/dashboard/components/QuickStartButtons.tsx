@@ -5,7 +5,7 @@ import { AppButton } from "../../../components/ui/AppButton";
 import { useQuickStartActions } from "../hooks/useQuickStartActions";
 import { WorkoutSelectionDialog } from "../../../widgets/dashboard/components/WorkoutSelectionDialog";
 import { WorkoutSelectionWidget } from "../../../widgets/dashboard/components/WorkoutSelectionWidget";
-import { useDeleteWorkoutMutation } from "../../history/hooks/useDeleteWorkoutMutation";
+import { useDeleteWorkoutMutation } from "../../../hooks/api/useDeleteWorkoutMutation";
 
 export const QuickStartButtons = () => {
   const {
@@ -23,7 +23,7 @@ export const QuickStartButtons = () => {
 
   const deleteMutation = useDeleteWorkoutMutation();
 
-  const handleDeleteTemplate = (id) => {
+  const handleDeleteTemplate = (id: string) => {
     deleteMutation.mutate(id);
   };
 

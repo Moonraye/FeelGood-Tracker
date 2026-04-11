@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
+import { DatabaseWorkoutSet } from "@/types/workout";
 
 export interface WorkoutSet {
   id: string;
@@ -39,7 +40,7 @@ interface ActiveWorkoutStore {
   removeSet: (exerciseId: string, setId: string) => void;
   updateExerciseNote: (exerciseId: string, note: string) => void;
   toggleSetCompletion: (exerciseId: string, setId: string) => void;
-  loadWorkoutFromHistory: (workoutName: string, dbSets: any[]) => void;
+  loadWorkoutFromHistory: (workoutName: string, dbSets: DatabaseWorkoutSet[]) => void;
 }
 
 export const useActiveWorkoutStore = create<ActiveWorkoutStore>()(

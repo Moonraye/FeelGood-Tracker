@@ -3,11 +3,15 @@ import { supabase } from "../../../config/supabase";
 import { useAuthStore } from "../../../store/useAuthStore";
 import { calculateMonthlyVolume, getFavoriteExercise } from "../utils/statsCalculator";
 
+
 export const useUserStatsQuery = () => {
     const user = useAuthStore((state) => state.user);
     return useQuery({
         queryKey: ['user_stats', user?.id],
         queryFn: async () => {
+
+            if (!user) throw new Error("User must be authenticated to fetch recent workout");
+            
             const { count: workoutsCount, error: countError } = await supabase
                 .from("workouts")
                 .select("*", { count: "exact", head: true })

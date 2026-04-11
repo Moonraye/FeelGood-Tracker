@@ -2,7 +2,23 @@ import { Paper, Typography, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { AppButton } from "../../../components/ui/AppButton";
 
-export const RecentWorkout = ({ workout }) => {
+export interface RecentWorkoutData {
+  name: string;
+  sets?: {
+    id: string | number; 
+    weight?: string | number | null;
+    reps?: string | number | null;
+    exercises?: {
+      name?: string;
+    } | null;
+  }[] | null;
+}
+
+interface RecentWorkoutProps {
+  workout?: RecentWorkoutData | null;
+}
+
+export const RecentWorkout = ({ workout }: RecentWorkoutProps) => {
   const navigate = useNavigate();
 
   if (!workout) {

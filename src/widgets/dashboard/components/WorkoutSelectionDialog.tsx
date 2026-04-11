@@ -14,6 +14,23 @@ import {
 import { formatDate } from "../../../utils/dateFormatter";
 import { DeleteOutline } from "@mui/icons-material";
 
+interface DialogWorkoutItem {
+  id: string;
+  name: string;
+  created_at: string | null;
+  sets?: any;
+}
+
+interface WorkoutSelectionDialogProps {
+  open: boolean;
+  onClose: () => void;
+  title: string;
+  workouts?: DialogWorkoutItem[] | null;
+  isLoading: boolean;
+  onSelect: (workout: any) => void;
+  onDelete?: (id: string) => void;
+}
+
 export const WorkoutSelectionDialog = ({
   onSelect,
   open,
@@ -22,7 +39,7 @@ export const WorkoutSelectionDialog = ({
   workouts,
   isLoading,
   onDelete,
-}) => {
+}: WorkoutSelectionDialogProps) => {
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>{title}</DialogTitle>

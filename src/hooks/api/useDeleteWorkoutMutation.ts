@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "../../../config/supabase";
+import { supabase } from "../../config/supabase";
 
 export const useDeleteWorkoutMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: async (workoutId) => {
+        mutationFn: async (workoutId: string): Promise<string> => {
             const { error } = await supabase
                 .from('workouts')
                 .delete()
@@ -16,7 +16,7 @@ export const useDeleteWorkoutMutation = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["workout_history"] });
             queryClient.invalidateQueries({ queryKey: ["user_stats"] });
-            queryClient.invalidateQueries({ queryKey: ["recent_workout"] });
+            queryClient.invalidateQueries({ queryKey: ["recent_workouts"] });
             queryClient.invalidateQueries({ queryKey: ['templates'] });
         },
         onError: (error) => {

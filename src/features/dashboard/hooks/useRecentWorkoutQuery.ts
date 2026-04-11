@@ -8,6 +8,9 @@ export const useRecentWorkoutQuery = () => {
     return useQuery({
         queryKey: ['recent_workouts', user?.id],
         queryFn: async () => {
+
+            if (!user) throw new Error("User must be authenticated to fetch recent workout");
+
             const { data, error } = await supabase
                 .from("workouts")
                 .select(`
