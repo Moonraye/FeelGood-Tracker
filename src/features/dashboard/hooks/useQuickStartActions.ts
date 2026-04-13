@@ -18,7 +18,6 @@ export const useQuickStartActions = () => {
 
     const [isTemplatesOpen, setIsTemplatesOpen] = useState(false);
     const [isHistoryOpen, setIsHistoryOpen] = useState(false);
-
     const { data: templates, isLoading: isTemplatesLoading } = useTemplatesQuery();
     const { data: history, isLoading: isHistoryLoading } = useWorkoutHistoryQuery();
 

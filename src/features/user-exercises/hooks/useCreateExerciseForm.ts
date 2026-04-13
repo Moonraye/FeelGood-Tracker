@@ -1,11 +1,13 @@
 import { useFormik } from "formik";
 import { useExerciseMutation } from "./useUserExerciseMutation";
 import { userExerciseSchema } from "../schema/userExerciseSchema";
-import { useNavigate } from "react-router-dom";
 
-export const useCreateExerciseForm = ({ onSuccess }) => {
+interface UseCreateExerciseFormProps {
+    onSuccess?: () => void;
+}
+
+export const useCreateExerciseForm = ({ onSuccess }: UseCreateExerciseFormProps) => {
     const exerciseMutation = useExerciseMutation();
-    const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues: {

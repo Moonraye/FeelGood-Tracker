@@ -9,7 +9,7 @@ export const useUpdateProfileMutation = () => {
     const navigate = useNavigate();
 
     return useMutation({
-        mutationFn: async ({ displayName }) => {
+        mutationFn: async (displayName: string) => {
             if (!user) throw new Error('No user');
             const { error } = await supabase
                 .from('profiles')

@@ -1,7 +1,5 @@
-// src/pages/ProfileSettings.jsx
 import { Box, CircularProgress } from "@mui/material";
 import { useProfileQuery } from "../features/profile/hooks/useProfileQuery";
-import { PageHeader } from "../components/ui/PageHeader";
 import { ProfileSettingsForm } from "../features/profile/components/ProfileSettingsForm";
 
 export const ProfileSettings = () => {

@@ -2,8 +2,13 @@ import { Box, IconButton, Tooltip } from "@mui/material";
 import { useWorkoutAction } from "../../../features/history/hooks/useWorkoutAction";
 import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import RepeatIcon from "@mui/icons-material/Repeat";
+import { SaveTemplateInput } from "@/features/history/hooks/useSaveTemplateMutation";
 
-export const WorkoutActionsWidget = ({ workout }) => {
+interface WorkoutActionsWidgetProps {
+  workout: SaveTemplateInput;
+}
+
+export const WorkoutActionsWidget = ({workout}: WorkoutActionsWidgetProps) => {
   const { handleSaveAsTemplate, handleRepeatWorkout, isSavingTemplate } =
     useWorkoutAction(workout);
 

@@ -26,7 +26,7 @@ export const useRecentWorkoutQuery = () => {
                 .eq("is_completed", true)
                 .order("created_at", { ascending: false })
                 .limit(1)
-                .single();
+                .maybeSingle();
 
             if (error) {
                 if (error.code === 'PGRST116') return null;

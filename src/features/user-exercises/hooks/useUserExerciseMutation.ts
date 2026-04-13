@@ -2,11 +2,16 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../../../config/supabase";
 import { useAuthStore } from "../../../store/useAuthStore";
 
+interface UseExerciseProps{
+    name: string;
+    description: string;
+    muscle_group: string;
+}
 export const useExerciseMutation = () => {
     const user = useAuthStore((state) => state.user);
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: async ({ name, description, muscle_group }) => {
+        mutationFn: async ({ name, description, muscle_group }: UseExerciseProps) => {
             if (!user) throw new Error('No user found');
 
             const { data, error } = await supabase

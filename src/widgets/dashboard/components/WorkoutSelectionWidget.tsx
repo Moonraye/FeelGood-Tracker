@@ -2,7 +2,12 @@ import { Box, Typography } from "@mui/material";
 import { AppButton } from "../../../components/ui/AppButton";
 import PlayArrowSharpIcon from "@mui/icons-material/PlayArrowSharp";
 
-export const WorkoutSelectionWidget = ({ onOpenTemplates, onOpenHistory }) => {
+interface WorkoutSelectionWidgetProps {
+  onOpenTemplates: () => void;
+  onOpenHistory: () => void;
+}
+
+export const WorkoutSelectionWidget = ({ onOpenTemplates, onOpenHistory }: WorkoutSelectionWidgetProps) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
       <AppButton

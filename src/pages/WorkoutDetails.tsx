@@ -6,10 +6,11 @@ import { groupSetsByExercise } from "../features/history/utils/groupSetsByExerci
 import { PageHeader } from "../components/ui/PageHeader";
 import { ExerciseSetsGroup } from "../features/history/components/ExerciseSetsGroup";
 import { WorkoutActionsWidget } from "../widgets/history/components/WorkoutActionsWidget";
+import { ExerciseSetData } from "../features/history/components/ExerciseSetsGroup";
 
 export const WorkoutDetails = () => {
   const { id } = useParams();
-  const { data: workout, isLoading } = useWorkoutDetailsQuery(id);
+  const { data: workout, isLoading } = useWorkoutDetailsQuery(id!);
 
   if (isLoading) {
     return (
@@ -42,7 +43,7 @@ export const WorkoutDetails = () => {
         <ExerciseSetsGroup
           key={index}
           exerciseName={exerciseName}
-          sets={sets}       
+          sets={sets as ExerciseSetData[]}       
         />
       ))}
     </Box>

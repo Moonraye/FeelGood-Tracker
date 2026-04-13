@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
 import { QuickStartButtons } from "../features/dashboard/components/QuickStartButtons";
 import { WorkoutStatsWidget } from "../widgets/dashboard/components/WorkoutStatsWidget";
 import { RecentWorkoutWidget } from "../widgets/dashboard/components/RecentWorkoutWidget";

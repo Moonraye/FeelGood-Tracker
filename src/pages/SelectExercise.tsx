@@ -12,11 +12,16 @@ import { useNavigate } from "react-router-dom";
 import { useActiveWorkoutStore } from "../features/active-workout/store/useActiveWorkoutStore";
 import { ExerciseSearchList } from "../features/exercise-library/components/ExerciseSearchList";
 
+interface SelectedExercise {
+  id: string;
+  name: string;
+}
+
 export const SelectExercise = () => {
   const navigate = useNavigate();
   const { addExercise } = useActiveWorkoutStore();
 
-  const handleSelect = (exercise) => {
+  const handleSelect = (exercise: SelectedExercise) => {
     addExercise({ id: exercise.id, name: exercise.name });
     navigate(-1);
   };
