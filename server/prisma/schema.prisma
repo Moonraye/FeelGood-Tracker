@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(uuid())
+  email      String   @unique
+  password   String
+  created_at DateTime @default(now())
+
+  profile   Profile?
+  workouts  Workout[]
+  exercises Exercise[]
+}
+
+model Profile {
+  id           String  @id @default(uuid())
+  display_name String?
+  avatar_url   String?
+
+  user_id String @unique
+  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("profiles")
+}
+
+model Workout {
+  id             String   @id @default(uuid())
+  name           String
+  is_completed   Boolean? @default(false)
+  is_template    Boolean? @default(false)
+  duration       Int?
+  exercise_notes Json?
+  created_at     DateTime @default(now())
+
+  user_id String
+  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  sets Set[]
+
+  @@map("workouts")
+}
+
+model Exercise {
+  id           String  @id @default(uuid())
+  name         String
+  muscle_group String
+  description  String?
+
+  user_id String? // IF NULL - SYSTEM, IF USER_ID - USER EXERCISE
+  user    User?   @relation(fields: [user_id], references: [id], onDelete: SetNull)
+
+  sets Set[]
+
+  @@map("exercises")
+}
+
+model Set {
+  id         String   @id @default(uuid())
+  set_number Int
+  weight     Float?
+  reps       Int?
+  rpe        Float?
+  created_at DateTime @default(now())
+
+  workout_id String
+  workout    Workout @relation(fields: [workout_id], references: [id], onDelete: Cascade)
+
+  exercise_id String
+  exercise    Exercise @relation(fields: [exercise_id], references: [id], onDelete: Cascade)
+
+  @@map("sets")
+}
+
+model MuscleGroup {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  @@map("muscle_groups")
+}
